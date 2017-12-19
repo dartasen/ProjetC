@@ -6,3 +6,4 @@ int compter(MotClef m) {
 
 	return 1 + compter(m->suiv);
 }
+bite
