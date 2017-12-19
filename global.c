@@ -1,4 +1,4 @@
-#include "liste.h"
+#include "lib/lib.h"
 
 void menu(void) {
  int choix = 0;
