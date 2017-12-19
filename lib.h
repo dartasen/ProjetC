@@ -21,7 +21,7 @@ typedef struct maillonEmprunt {
 typedef struct maillonMot {
 	char mot[21];
 	struct maillonMot* suiv;
-} *MotClef, maillonMot;
+} *MotClef, MaillonMot;
 
 typedef struct {
 	int numLecteur;
