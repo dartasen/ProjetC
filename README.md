@@ -17,7 +17,7 @@ Fonctionnalités suplémentaires :
 * Diverses éditions
 * ...
 
-L'application doit charger en mémoire les fichiers (lecteurs et ouvrages) en début de traitement et faire les sauvegardes en fin de traitement.
+>L'application doit charger en mémoire les fichiers (lecteurs et ouvrages) en début de traitement et faire les sauvegardes en fin de traitement.
 
 # Structure :
 * Listes chaînées pour les ouvrages, les emprunts, les mot clefs
