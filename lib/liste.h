@@ -32,7 +32,7 @@ MotClef inserer(MotClef m, char mot[]) {
 }
 
 MotClef supprimerEnTete(MotClef m) {
-	maillonMot* temp;
+	MaillonMot* temp;
 
 	if (m == NULL) {
 		printf("Erreur lors de la suppression en tête \n");
