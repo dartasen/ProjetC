@@ -16,26 +16,27 @@ void menu(void) {
    printf("Votre choix >");
    scanf("%d", &choix);
 
-   //Si le choix est de quitter, on arrête
-   if (choix == 8)
-	   return;
-
-  //Si le choix est incorrect, on relance la boucle
-   if (choix < 1 || choix > 2) {
-      printf("Le choix est incorrect :( \n");
-      continue;
-   }
- }
-
- switch(choix) {
-
+   switch(choix) {
  	 case 1:
 
 	 break;
 
  	 case 2:
 
+ 	 break;
+
+ 	 case 8:
+
+ 		 printf("Sortie du programme \n");
+ 		 return;
+
 	 break;
+
+ 	 default:
+
+ 		 printf("Merci de rentrer un choix correct \n");
+
+ 	 break;
  }
 }
 
