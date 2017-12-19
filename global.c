@@ -13,7 +13,7 @@ void menu(void) {
    printf("2) ???\n");
    printf("8) Quitter \n");
 
-   printf("Votre choix >");
+   printf("\nVotre choix >");
    scanf("%d", &choix);
 
    switch(choix) {
