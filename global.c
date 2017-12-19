@@ -62,6 +62,13 @@ Ouvrage saisirOuvrage(void) {
 	printf("Saisir la quantité de livre \n");
 	scanf("%d", &o.quantite);
 
+	m = (MotClef) malloc(sizeof(MaillonMot));
+
+	if (m == NULL) {
+		printf("Erreur de malloc des MotClefs \n");
+		exit(1);
+	}
+
 	printf("Saisir les mot-clefs non composés du livre (:q pour quitter) \n");
 
 	while (strcmp(c, ":q") != 0) {
@@ -82,6 +89,8 @@ void afficherOuvrage(Ouvrage o) {
 	printf("> Catégorie : %s \n", o.categorie);
 	printf("> Quantité : %d (- %d) \n", o.quantite, o.quantiteEmprunt);
 	afficherMotClef(o.motclefs);
+
+	printf("\n");
 }
 
 int main(void) {
