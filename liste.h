@@ -1,7 +1,7 @@
 MotClef MotVide(void) {
 	return NULL;
 }
-
+rrrr
 MotClef insererEnTete(MotClef m, char mot[]) {
 	MotClef sauv = m;
 	m = (MotClef) malloc(sizeof(maillonMot));
