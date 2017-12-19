@@ -68,3 +68,13 @@ int longueur(MotClef m) {
 
 	return 1 + longueur(m->suiv);
 }
+
+void afficherMotClef(MotClef m) {
+	if (m == NULL) {
+		printf("\n");
+		return;
+	}
+
+	printf("%s", m->mot);
+	afficherMotClef(m->suiv);
+}
