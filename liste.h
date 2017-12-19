@@ -3,18 +3,17 @@ MotClef MotVide(void) {
 }
 
 MotClef insererEnTete(MotClef m, char mot[]) {
-	MotClef sauv = m;
-	m = (MotClef) malloc(sizeof(maillonMot));
+	MotClef aux = (MotClef) malloc(sizeof(MaillonMot));
 
-	if (m == NULL) {
+	if (aux == NULL) {
 	    printf("Erreur de malloc de motClef \n");
-	    return sauv;
+	    exit(1);
 	}
 
-	strcpy(m->mot, mot);
-	m->suiv = m;
+	strcpy(aux->mot, mot);
+	aux->suiv = m;
 
-	return m;
+	return aux;
 }
 
 MotClef inserer(MotClef m, char mot[]) {
