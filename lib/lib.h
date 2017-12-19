@@ -37,3 +37,5 @@ typedef struct {
 	int quantiteEnmprunt;
 	MotClef motclefs;
 } Ouvrage;
+
+#include "prototype.h"
