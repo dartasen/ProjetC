@@ -37,9 +37,9 @@ void menu(void) {
  		 printf("Merci de rentrer un choix correct \n");
 
  	 break;
- }
+    }
+  }
 }
-
 
 int main(void) {
  menu();
