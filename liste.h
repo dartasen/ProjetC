@@ -7,8 +7,8 @@ MotClef insererEnTete(MotClef m, char mot[]) {
 	m = (MotClef) malloc(sizeof(maillonMot));
 
 	if (m == NULL) {
-		printf("Erreur de malloc de motClef \n");
-	    exit(1);
+	    printf("Erreur de malloc de motClef \n");
+	    return sauv;
 	}
 
 	strcpy(m->mot, mot);
@@ -27,7 +27,7 @@ MotClef inserer(MotClef m, char mot[]) {
 	if (strcmp(m->mot, mot) == 0)
 		return m;
 
-	m->suiv = inserer(m->suiv, m);
+	m->suiv = inserer(m->suiv, mot);
 
 	return m;
 }
