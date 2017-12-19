@@ -9,7 +9,7 @@ void menu(void) {
 
  while (choix != 8) {
 
-   printf("1) ???\n");
+   printf("1) Saisir un ouvrage\n");
    printf("2) ???\n");
    printf("8) Quitter \n");
 
@@ -17,8 +17,10 @@ void menu(void) {
    scanf("%d", &choix);
 
    switch(choix) {
- 	 case 1:
-
+	 case 1:
+		
+		   afficherOuvrage(saisirOuvrage());
+		   
 	 break;
 
  	 case 2:
@@ -39,6 +41,47 @@ void menu(void) {
  	 break;
     }
   }
+}
+
+Ouvrage saisirOuvrage(void) {
+	MotClef m = MotVide();
+	char c[20];
+	Ouvrage o;
+
+	printf("\nSaisir la côte de l'ouvrage \n");
+	scanf("%s%*c", o.cote);
+
+	printf("Saisir le titre du livre \n");
+	fgets(o.titre, sizeof(o.titre), stdin);
+	o.titre[strlen(o.titre) - 1] = '\0';
+
+	printf("Saisir le nom de la catégorie \n");
+	fgets(o.categorie, sizeof(o.categorie), stdin);
+	o.categorie[strlen(o.categorie) - 1] = '\0';
+
+	printf("Saisir la quantité de livre \n");
+	scanf("%d", &o.quantite);
+
+	printf("Saisir les mot-clefs non composés du livre (:q pour quitter) \n");
+
+	while (strcmp(c, ":q") != 0) {
+		printf("Saisie > ");
+		scanf("%s", c);
+		inserer(m, c);
+	}
+
+	o.quantiteEmprunt = 0;
+	o.motclefs = m;
+
+	return o;
+}
+
+void afficherOuvrage(Ouvrage o) {
+	printf("%s \n", o.titre);
+	printf("> Côte : %s \n", o.cote);
+	printf("> Catégorie : %s \n", o.categorie);
+	printf("> Quantité : %d (- %d) \n", o.quantite, o.quantiteEmprunt);
+	afficherMotClef(o.motclefs);
 }
 
 int main(void) {
