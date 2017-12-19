@@ -20,7 +20,7 @@ MotClef inserer(MotClef m, char mot[]) {
 	if (m == MotVide())
 		return insererEnTete(m, mot);
 
-	if (strcmp(m->mot, mot) < 0)
+	if (strcmp(m->mot, mot) > 0)
 		return insererEnTete(m, mot);
 
 	if (strcmp(m->mot, mot) == 0)
@@ -50,7 +50,7 @@ MotClef supprimer(MotClef m, char mot[]) {
 	if (m == NULL)
 		return m;
 
-	if (strcmp(m->mot, mot) < 0)
+	if (strcmp(m->mot, mot) > 0)
 		return m;
 
 	if (strcmp(m->mot, mot) == 0)
