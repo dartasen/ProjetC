@@ -1,14 +1,28 @@
+#include "lib/lib.h"
+
 Lecteur saisirLecteur(void) {
   
   Lecteur l;
-  printf("Saisissez le nom du lecteur");
-  scanf("%d", &l.nom);
+
+  printf("Saisissez le numéro du lecteur : ");
+  scanf("%d", &l.numLecteur);
+
+  printf("Saisissez le nom du lecteur : ");
+  scanf("%s", l.nom);
   
-  printf("Saisissez le prénom du lecteur");
-  scanf("%d*c", &l.prenom);
+  printf("Saisissez le prénom du lecteur : ");
+  scanf("%s", l.prenom);
         
-  printf("Saisissez le numéro du lecteur");
-  scanf("%s", l.numLecteur);
-        
-  l.Emprunt = NULL;
+  l.emprunt = NULL;
+}
+
+void afficheLecteur(Lecteur l){
+
+	printf("///////////////////////////\n");
+
+	printf("Lecteur n° %d\n", l.numLecteur);
+	printf("Nom : %s\n", l.nom);
+	printf("Prénom : %s\n", l.prenom);
+
+	printf("///////////////////////////\n");
 }
