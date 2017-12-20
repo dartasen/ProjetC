@@ -39,6 +39,14 @@ void trierEchange(Lecteur* tab[], int nb) {
 	}
 }
 
+void echangerEchange(Lecteur* tab[], int i, int j) {
+	Lecteur* aux;
+
+	aux = tab[i];
+	tab[i] = tab[j];
+	tab[j] = aux;
+}
+
 int rechercheEchange(Lecteur* tab[], int nb) {
 	int pge = 0, i;
 
@@ -51,15 +59,14 @@ int rechercheEchange(Lecteur* tab[], int nb) {
 }
 
 int comparerNomPrenom(char* nom, char* prenom, char* nom1, char* prenom1) {
-
-	if (strcmp(nom, nom1) > 0) {
-		
-	}
-
-
-	return -1;
+	int comp = strcmp(nom, nom1);
+	int comp2 = strcmp(prenom, prenom1);
+	
+	if (comp == 0)
+		return comp2;
+	
+	return comp;
 }
-#include "lib/lib.h"
 
 Lecteur saisirLecteur(void) {  
   Lecteur l;
@@ -71,12 +78,10 @@ Lecteur saisirLecteur(void) {
   fgets(l.nom, sizeof(l.nom), stdin);
   l.nom[strlen(l.nom) - 1] = '\0';
 
- printf("Saisir le prénom du lecteur \n");
+  printf("Saisir le prénom du lecteur \n");
   fgets(l.prenom, sizeof(l.prenom), stdin);
-  l.prenom[strlen(l.prenom) - 1] = '\0';
-
-
-        
+  l.prenom[strlen(l.prenom) - 1] = '\0'
+	  
   l.emprunt = NULL;
 
 return l;
@@ -94,53 +99,41 @@ void afficheLecteur(Lecteur l){
 }
 
 void DecalerADroite(Lecteur **l, int n, int i) {
-
 	int j;
-	for( j = n-1; j >= i; j--)
-	l[j+1] = l[j];
+	
+	for (j = n-1; j >= i; j--)
+		l[j+1] = l[j];
 }
 
 void DecalerAGauche(Lecteur **l, int n, int i) {
-	
 	int j;
+	
 	for( j = i; j <= n-1; j++)
-	l[j] = l[j+1];
+		l[j] = l[j+1];
 }
 
 int ajouterLecteur(Lecteur **tab, Lecteur l, int nbelem, int tmax) {
-
 	int i;
-	if(nbelem == tmax)
-	{
-	printf("Erreur, tableau de Lecteur plein");
-	return -1; // Du coup faut le realloc pour augumenter la taille du tab
+	
+	if(nbelem == tmax) {
+		printf("Erreur, tableau de Lecteur plein");
+		return -1;
 	}
-
-	// i = rechercheDicho pour trouver la position d'insertion du Lecteur
 
 	DecalerADroite(tab,nbelem,i);
 	tab[i] = l;
+	
 	return nbelem +1 ;
 }
 
 int supprimerLecteur(Lecteur **tab, int i, int nbelem) {
 	
-	if(nbelem == 0)
-	{
-	printf("Tableau deja vide");
-	return -1;
+	if(nbelem == 0) {
+		printf("Tableau deja vide");
+		return -1;
 	}
 	
 	DecalerAGauche(tab,nbelem,i);
 	
 	return nbelem -1 ;
 }
-
-	
-
-
-
-	 
-
-
-
