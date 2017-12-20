@@ -38,5 +38,7 @@ typedef struct {
 	MotClef motclefs;
 } Ouvrage;
 
-#include "prototype.h"
-#include "liste.h"
+#include "motclef.h"
+#include "ouvrage.h"
+#include "lecteur.h"
+#include "entreesortie.h"
