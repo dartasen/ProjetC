@@ -15,7 +15,7 @@ typedef struct {
 typedef struct maillonEmprunt {
 	Emprunt emp;
 	struct maillonEmprunt* suiv;
-} *Liste, MaillonEmprunt;
+} *ListeEmprunt, MaillonEmprunt;
 
 typedef struct maillonMot {
 	char mot[21];
@@ -26,7 +26,7 @@ typedef struct {
 	int numLecteur;
 	char nom[31];
 	char prenom[31];
-	Liste emprunt;
+	ListeEmprunt emprunt;
 } Lecteur;
 
 typedef struct {
@@ -34,7 +34,7 @@ typedef struct {
 	char titre[31];
 	char categorie[16];
 	int quantite;
-	int quantiteEnmprunt;
+	int quantiteEmprunt;
 	MotClef motclefs;
 } Ouvrage;
 

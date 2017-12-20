@@ -93,6 +93,15 @@ void afficherOuvrage(Ouvrage o) {
 	printf("\n");
 }
 
+Emprunt nouveauEmprunt(Lecteur l, Ouvrage o)
+{
+	if (o.quantite - o.quantiteEmprunt <=0)
+		{
+			printf("Impossible d'emprunter l'ouvrage \n");
+			return l.emprunt;
+		}
+}
+
 int main(void) {
  menu();
 
