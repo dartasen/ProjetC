@@ -6,10 +6,10 @@ Ouvrage saisirOuvrage(void);
 void afficherOuvrage(Ouvrage o);
 
 void afficherMotClef(MotClef m);
-int longueur(MotClef m);
-MotClef supprimer(MotClef m, char mot[]);
-MotClef supprimerEnTete(MotClef m);
-MotClef inserer(MotClef m, char mot[]);
-MotClef insererEnTete(MotClef m, char mot[]);
-MotClef MotVide(void);
+int longueurMotClef(MotClef m);
+MotClef supprimerMotClef(MotClef m, char mot[]);
+MotClef supprimerEnTeteMotClef(MotClef m);
+MotClef insererMotClef(MotClef m, char mot[]);
+MotClef insererEnTeteMotClef(MotClef m, char mot[]);
+MotClef MotVideMotClef(void);
 Emprunt nouvelEmprunt(Lecteur l, Ouvrage o);
