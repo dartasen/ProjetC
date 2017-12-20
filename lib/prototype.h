@@ -12,4 +12,9 @@ MotClef supprimerEnTeteMotClef(MotClef m);
 MotClef insererMotClef(MotClef m, char mot[]);
 MotClef insererEnTeteMotClef(MotClef m, char mot[]);
 MotClef MotVideMotClef(void);
+
 Emprunt nouvelEmprunt(Lecteur l, Ouvrage o);
+
+void trierEchange(Lecteur* tab[], int nb);
+int rechercheEchange(Lecteur* tab[], int nb);
+void echangerEchange(Lecteur* tab[], int i, int j);
