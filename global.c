@@ -93,11 +93,25 @@ void afficherOuvrage(Ouvrage o) {
 	printf("\n");
 }
 
-int longueurListe(ListeEmprunt e)
+ListeEmprunt  insererEnTeteEmprunt(ListeEmprunt l, Ouvrage o)
+{
+	MaillonEmprunt *m;
+	m= (MaillonEmprunt *)malloc(sizeof(MaillonEmprunt));
+	if (m==NULL)
+	{
+		printf("erreur malloc \n");
+		exit(1);
+	}
+	strcpy(m->emp.cote, o.cote);
+	m->suiv = l;
+	return m;
+}
+
+int longueurListeEmprunt(ListeEmprunt e)
 {
 	if (e->suiv == NULL)
-		return 1;
-	return 1+longueurListe(e);
+		return 0;
+	return 1+longueurListeEmprunt(e->suiv);
 }
 
 ListeEmprunt nouvelEmprunt(Lecteur l, Ouvrage o)
@@ -107,15 +121,18 @@ ListeEmprunt nouvelEmprunt(Lecteur l, Ouvrage o)
 			printf("Impossible d'emprunter l'ouvrage \n");
 			return l.emprunt;
 		}
-	if (longueurListe(l.emprunt) ==5)
+	if (longueurListeEmprunt(l.emprunt) ==5)
 		{
 			printf("Vous avez déjà emprunter 5 livres \n");
 			return l.emprunt;
 		}
-	insererEnTeteEmprunt(l.emprunt,o)
-
+	l.emprunt=insererEnTeteEmprunt(l.emprunt,o);
 }
-
+void sauvegardeBin (Ouvrage **tabOuvrage , Lecteur **tabLecteur, int nbOuvrage , int nbLecteur)
+{
+	fopen("sauv.bin","wb");
+	f.write()
+}
 int main(void) {
  menu();
 
