@@ -42,3 +42,4 @@ typedef struct {
 #include "ouvrage.h"
 #include "lecteur.h"
 #include "entreesortie.h"
+#include "emprunt.h"
