@@ -2,7 +2,7 @@ MotClef MotVide(void) {
 	return NULL;
 }
 
-MotClef insererEnTete(MotClef m, char mot[]) {
+MotClef insererEnTeteMotClef(MotClef m, char mot[]) {
 	MotClef aux = (MotClef) malloc(sizeof(MaillonMot));
 
 	if (aux == NULL) {
@@ -16,22 +16,22 @@ MotClef insererEnTete(MotClef m, char mot[]) {
 	return aux;
 }
 
-MotClef inserer(MotClef m, char mot[]) {
+MotClef insererMotClef(MotClef m, char mot[]) {
 	if (m == MotVide())
-		return insererEnTete(m, mot);
+		return insererEnTeteMotClef(m, mot);
 
 	if (strcmp(m->mot, mot) > 0)
-		return insererEnTete(m, mot);
+		return insererEnTeteMotClef(m, mot);
 
 	if (strcmp(m->mot, mot) == 0)
 		return m;
 
-	m->suiv = inserer(m->suiv, mot);
+	m->suiv = insererMotClef(m->suiv, mot);
 
 	return m;
 }
 
-MotClef supprimerEnTete(MotClef m) {
+MotClef supprimerEnTeteMotClef(MotClef m) {
 	MaillonMot* temp;
 
 	if (m == NULL) {
@@ -46,7 +46,7 @@ MotClef supprimerEnTete(MotClef m) {
 	return m;
 }
 
-MotClef supprimer(MotClef m, char mot[]) {
+MotClef supprimerMotClef(MotClef m, char mot[]) {
 	if (m == NULL)
 		return m;
 
@@ -54,18 +54,18 @@ MotClef supprimer(MotClef m, char mot[]) {
 		return m;
 
 	if (strcmp(m->mot, mot) == 0)
-		return supprimerEnTete(m);
+		return supprimerEnTeteMotClef(m);
 
-	m->suiv = supprimer(m->suiv, mot);
+	m->suiv = supprimerMotClef(m->suiv, mot);
 
 	return m;
 }
 
-int longueur(MotClef m) {
+int longueurMotClef(MotClef m) {
 	if (m == NULL)
 		return 0;
 
-	return 1 + longueur(m->suiv);
+	return 1 + longueurMotClef(m->suiv);
 }
 
 void afficherMotClef(MotClef m) {
