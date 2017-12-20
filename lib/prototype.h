@@ -12,3 +12,4 @@ MotClef supprimerEnTete(MotClef m);
 MotClef inserer(MotClef m, char mot[]);
 MotClef insererEnTete(MotClef m, char mot[]);
 MotClef MotVide(void);
+Emprunt nouveauEmprunt(Lecteur l, Ouvrage o);
