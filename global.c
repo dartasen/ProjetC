@@ -93,27 +93,6 @@ void afficherOuvrage(Ouvrage o) {
 	printf("\n");
 }
 
-ListeEmprunt  insererEnTeteEmprunt(ListeEmprunt l, Ouvrage o)
-{
-	MaillonEmprunt *m;
-	m= (MaillonEmprunt *)malloc(sizeof(MaillonEmprunt));
-	if (m==NULL)
-	{
-		printf("erreur malloc \n");
-		exit(1);
-	}
-	strcpy(m->emp.cote, o.cote);
-	m->suiv = l;
-	return m;
-}
-
-int longueurListeEmprunt(ListeEmprunt e)
-{
-	if (e->suiv == NULL)
-		return 0;
-	return 1+longueurListeEmprunt(e->suiv);
-}
-
 ListeEmprunt nouvelEmprunt(Lecteur l, Ouvrage o)
 {
 	if (o.quantite - o.quantiteEmprunt <=0)
