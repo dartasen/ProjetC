@@ -16,6 +16,8 @@ Fonctionnalités suplémentaires :
 * Enregistrement d'un retour d'emprunt
 * Diverses éditions
 * ...
+* Quantité max 5 emprunts
+
 
 >L'application doit charger en mémoire les fichiers (lecteurs et ouvrages) en début de traitement et faire les sauvegardes en fin de traitement.
 
