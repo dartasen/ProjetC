@@ -3,6 +3,12 @@
 #include <string.h>
 #include <math.h>
 
+
+#include "motclef.h"
+#include "ouvrage.h"
+#include "lecteur.h"
+#include "entreesortie.h"
+#include "emprunt.h"
 typedef struct {
 	int j, m , a;
 } Date;
@@ -37,9 +43,3 @@ typedef struct {
 	int quantiteEmprunt;
 	MotClef motclefs;
 } Ouvrage;
-
-#include "motclef.h"
-#include "ouvrage.h"
-#include "lecteur.h"
-#include "entreesortie.h"
-#include "emprunt.h"
