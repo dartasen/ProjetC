@@ -74,7 +74,7 @@ Ouvrage saisirOuvrage(void) {
 	while (strcmp(c, ":q") != 0) {
 		printf("Saisie > ");
 		scanf("%s", c);
-		inserer(m, c);
+		insererMotClef(m, c);
 	}
 
 	o.quantiteEmprunt = 0;
@@ -93,13 +93,27 @@ void afficherOuvrage(Ouvrage o) {
 	printf("\n");
 }
 
-Emprunt nouveauEmprunt(Lecteur l, Ouvrage o)
+int longueurListe(ListeEmprunt e)
+{
+	if (e->suiv == NULL)
+		return 1;
+	return 1+longueurListe(e);
+}
+
+ListeEmprunt nouvelEmprunt(Lecteur l, Ouvrage o)
 {
 	if (o.quantite - o.quantiteEmprunt <=0)
 		{
 			printf("Impossible d'emprunter l'ouvrage \n");
 			return l.emprunt;
 		}
+	if (longueurListe(l.emprunt) ==5)
+		{
+			printf("Vous avez déjà emprunter 5 livres \n");
+			return l.emprunt;
+		}
+	insererEnTeteEmprunt(l.emprunt,o)
+
 }
 
 int main(void) {
