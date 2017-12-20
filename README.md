@@ -22,6 +22,6 @@ Fonctionnalités suplémentaires :
 >L'application doit charger en mémoire les fichiers (lecteurs et ouvrages) en début de traitement et faire les sauvegardes en fin de traitement.
 
 # Structure :
-* Tableau dynamique pour les ouvrages :rainbow: 
+* Tableau dynamique de pointeur pour les ouvrages :rainbow: 
 * Listes chaînées pour les emprunts, les mot clefs
 * Tableau dynamique de pointeurs pour les lecteurs:trollface:
