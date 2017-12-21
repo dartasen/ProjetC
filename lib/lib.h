@@ -3,25 +3,15 @@
 #include <string.h>
 #include <math.h>
 
-
-#include "motclef.h"
-#include "ouvrage.h"
-#include "lecteur.h"
-#include "entreesortie.h"
-#include "emprunt.h"
 typedef struct {
 	int j, m , a;
 } Date;
 
-typedef struct {
+typedef struct maillonEmprunt {
 	char cote[21];
 	Date date;
-} Emprunt;
-
-typedef struct maillonEmprunt {
-	Emprunt emp;
 	struct maillonEmprunt* suiv;
-} *ListeEmprunt, MaillonEmprunt;
+} *Emprunt, MaillonEmprunt;
 
 typedef struct maillonMot {
 	char mot[21];
@@ -32,7 +22,7 @@ typedef struct {
 	int numLecteur;
 	char nom[31];
 	char prenom[31];
-	ListeEmprunt emprunt;
+	Emprunt emprunt;
 } Lecteur;
 
 typedef struct {
@@ -43,3 +33,9 @@ typedef struct {
 	int quantiteEmprunt;
 	MotClef motclefs;
 } Ouvrage;
+
+#include "motclef.h"
+#include "ouvrage.h"
+#include "lecteur.h"
+#include "entreesortie.h"
+#include "emprunt.h"
