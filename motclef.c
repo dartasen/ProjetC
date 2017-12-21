@@ -1,3 +1,5 @@
+#include "lib/lib.h"
+
 MotClef MotVide(void) {
 	return NULL;
 }
