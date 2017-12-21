@@ -1,3 +1,5 @@
+#include "lib/lib.h"
+
 Ouvrage saisirOuvrage(void) {
 	MotClef m = MotVide();
 	char c[20];
