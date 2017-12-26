@@ -89,7 +89,7 @@ void ecrireMotClef(FILE* fichier, MotClef m) {
 	fprintf(fichier, "%s:", m->mot);
 }
 
-char** explode(char delimiteur, char* mot, int* taille) {
+char** explit(char delimiteur, char* mot, int* taille) {
 	int longueur = strlen(mot), i = 0, j = 0, k = 0;
 	char x, **tabmot;
 
@@ -129,7 +129,7 @@ MotClef lireMotClef(FILE* fichier) {
 	int i, taille = 0;
 
 	fscanf(fichier, "%s", mot);
-	motsplit = explode(':', mot, &taille);
+	motsplit = explit(':', mot, &taille);
 
 	for (i = 0; i < taille; i++)
 		lmot = insererMotClef(lmot, motsplit[i]);
