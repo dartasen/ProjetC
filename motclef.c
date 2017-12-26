@@ -101,7 +101,6 @@ char** explit(char delimiteur, char* mot, int* taille) {
 		exit(1);
 	}
 
-
 	while (i <= longueur) {
 		x = mot[i++];
 
