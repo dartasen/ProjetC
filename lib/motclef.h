@@ -5,3 +5,4 @@ MotClef supprimerEnTeteMotClef(MotClef m);
 MotClef insererMotClef(MotClef m, char mot[]);
 MotClef insererEnTeteMotClef(MotClef m, char mot[]);
 MotClef MotVideMotClef(void);
+void ecrireMotClef(FILE* fichier, MotClef m);
