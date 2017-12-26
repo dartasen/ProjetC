@@ -88,3 +88,51 @@ void ecrireMotClef(FILE* fichier, MotClef m) {
 
 	fprintf(fichier, "%s:", m->mot);
 }
+
+char** explode(char delimiteur, char* mot, int* taille) {
+	int longueur = strlen(mot), i = 0, j = 0, k = 0;
+	char x, **tabmot;
+
+	tabmot = (char**) malloc(sizeof(char**));
+	tabmot[0] = (char*) malloc(longueur * sizeof(char));
+
+	if (tabmot == NULL) {
+		printf("Erreur de malloc pour le explode \n");
+		exit(1);
+	}
+
+
+	while (i <= longueur) {
+		x = mot[i++];
+
+		if (x == delimiteur || x == '\0') {
+			tabmot[j][k] = '\0';
+			tabmot[j] = (char*) realloc(tabmot[j], k * sizeof(char));
+
+			k = 0;
+			// ++j+1 = (j += 1) + 1 = (j = j + 1) + 1
+
+			tabmot = (char**) realloc(tabmot, (++j+1) * sizeof(char**));
+			tabmot[j] = (char*) malloc(longueur * sizeof(char));
+		} else
+			tabmot[j][k++] = x;
+	}
+
+	*taille = j;
+
+	return tabmot;
+}
+
+MotClef lireMotClef(FILE* fichier) {
+	char *mot = NULL, **motsplit = NULL;
+	MotClef lmot = MotVide();
+	int i, taille = 0;
+
+	fscanf(fichier, "%s", mot);
+	motsplit = explode(':', mot, &taille);
+
+	for (i = 0; i < taille; i++)
+		lmot = insererMotClef(lmot, motsplit[i]);
+
+	return lmot;
+}
