@@ -76,6 +76,15 @@ void afficherMotClef(MotClef m) {
 		return;
 	}
 
-	printf("%s", m->mot);
+	printf("%s, ", m->mot);
 	afficherMotClef(m->suiv);
+}
+
+void ecrireMotClef(FILE* fichier, MotClef m) {
+	if (m == NULL) {
+		printf("NULL\n");
+		return;
+	}
+
+	fprintf(fichier, "%s:", m->mot);
 }
