@@ -1,7 +1,9 @@
 #include "lib/lib.h"
 
-void menu(void) {
+void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
  int choix = 0;
+ Ouvrage o;
+ Lecteur l;
 
  printf("**********************\n");
  printf("*    BIBLIOTHEQUE    *\n");
@@ -10,7 +12,7 @@ void menu(void) {
  while (choix != 8) {
 
    printf("1) Saisir un ouvrage\n");
-   printf("2) ???\n");
+   printf("2) Saisir un lecteur\n");
    printf("8) Quitter \n");
 
    printf("\nVotre choix >");
@@ -19,17 +21,23 @@ void menu(void) {
    switch(choix) {
 	 case 1:
 		
-		   afficherOuvrage(saisirOuvrage());
+		 o = saisirOuvrage();
+		 afficherOuvrage(o);
 		   
 	 break;
 
  	 case 2:
+		   
+		 l = saisirLecteur();
+ 		 afficheLecteur(l);
 
  	 break;
 
  	 case 8:
 
  		 printf("Sortie du programme \n");
+		 sauvegarde(tabO, tabL, *nbO, *nbL);
+		  
  		 return;
 
 	 break;
@@ -44,7 +52,11 @@ void menu(void) {
 }
 
 int main(void) {
- menu();
+ Ouvrage** tabO = NULL;
+ Lecteur** tabL = NULL;
+ int nbO = 0, nbL = 0;
+
+ menu(tabO, tabL, &nbO, &nbL);
 
  return 0;
 }
