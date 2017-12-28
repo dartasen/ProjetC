@@ -127,16 +127,15 @@ char** explit(char delimiteur, char* mot, int* taille) {
 	return tabmot;
 }
 
-MotClef lireMotClef(FILE* fichier) {
-	char *mot = NULL, **motsplit = NULL;
+MotClef lireMotClef(char* serial) {
 	MotClef lmot = MotVide();
+	char **motsplit = NULL;
 	int i, taille = 0;
 
-	fscanf(fichier, "%s", mot);
-	motsplit = explit(':', mot, &taille);
+	motsplit = explode(':', serial, &taille);
 
 	for (i = 0; i < taille; i++)
-		lmot = insererMotClef(lmot, motsplit[i]);
+		lmot = insererEnTeteMotClef(lmot, motsplit[i]);
 
 	return lmot;
 }
