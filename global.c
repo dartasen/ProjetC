@@ -43,8 +43,6 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
  		 for (i = 0; i < *nbO; i++)
  			afficherOuvrage(*tabO[i]);
 
- 		 printf("\n");
-
  	 break;
 
  	 case 8:
