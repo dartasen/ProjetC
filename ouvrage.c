@@ -1,7 +1,7 @@
 #include "lib/lib.h"
 
 Ouvrage saisirOuvrage(void) {
-	MotClef m = MotVide();
+	MotClef m = NULL;
 	char c[20];
 	Ouvrage o;
 
@@ -17,9 +17,9 @@ Ouvrage saisirOuvrage(void) {
 	o.categorie[strlen(o.categorie) - 1] = '\0';
 
 	printf("Saisir la quantité de livre \n");
-	scanf("%d", &o.quantite);
+	scanf("%d%*c", &o.quantite);
 
-	m = (MotClef) malloc(sizeof(MaillonMot));
+	m = (MaillonMot*) malloc(sizeof(MaillonMot));
 
 	if (m == NULL) {
 		printf("Erreur de malloc des MotClefs \n");
@@ -27,15 +27,22 @@ Ouvrage saisirOuvrage(void) {
 	}
 
 	printf("Saisir les mot-clefs non composés du livre (:q pour quitter) \n");
+	printf("Saisie > ");
+	
+	scanf("%s%*c", c);
+	strcpy(m->mot, c);
+	m->suiv = NULL;
 
 	while (strcmp(c, ":q") != 0) {
 		printf("Saisie > ");
-		scanf("%s", c);
+		scanf("%s%*c", c);
 		insererMotClef(m, c);
 	}
 
 	o.quantiteEmprunt = 0;
 	o.motclefs = m;
+	
+	printf("\n");
 
 	return o;
 }
