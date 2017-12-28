@@ -101,7 +101,16 @@ int sauvegardeOuvrage(Ouvrage* tab[], int nbr) {
 
 	for (i = 0; i < nbr; i++) {
 		m = *tab[i];
-
+		
+		////////////////// Prototype 
+		
+		//while(strlen(m.titre) < 31)
+			//strcat(m.titre,"\0");
+		//while(strlen(m.categorie) < 16)
+			//strcat(m.categorie,"\0");
+		      
+		//////////////////
+		      
 		fprintf(fichier, "%s\t%d\t%s\t%d\t%s\t", m.cote, m.quantite, m.titre, m.quantiteEmprunt, m.categorie);
 		ecrireMotClef(fichier, m.motclefs);
 	}
