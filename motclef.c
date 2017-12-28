@@ -92,6 +92,7 @@ void ecrireMotClef(FILE* fichier, MotClef m) {
 	}
 
 	fprintf(fichier, "%s:", m->mot);
+	ecrireMotClef(fichier, m->suiv);
 }
 
 char** explit(char delimiteur, char* mot, int* taille) {
