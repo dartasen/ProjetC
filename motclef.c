@@ -71,11 +71,6 @@ int longueurMotClef(MotClef m) {
 }
 
 void afficherMotClef(MotClef m) {
-	if (m == NULL) {
-		printf("\n");
-		return;
-	}
-	
 	if (m->suiv == NULL) {
 		printf("%s\n", m->mot);
 		return;
@@ -86,8 +81,8 @@ void afficherMotClef(MotClef m) {
 }
 
 void ecrireMotClef(FILE* fichier, MotClef m) {
-	if (m == NULL) {
-		printf("\n");
+	if (m->suiv == NULL) {
+		fprintf(fichier, "%s\n", m->mot);
 		return;
 	}
 
