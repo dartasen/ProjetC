@@ -77,7 +77,7 @@ void afficherMotClef(MotClef m) {
 	}
 	
 	if (m->suiv == NULL) {
-		printf("%s", m->mot);
+		printf("%s\n", m->mot);
 		return;
 	}
 	
