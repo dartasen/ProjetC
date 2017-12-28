@@ -38,7 +38,7 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
 
  	 case 3:
 
- 		 printf("\nAffichage de %d Ouvrages \n", *nbO);
+ 		 printf("\nAffichage de %d Ouvrages \n\n", *nbO);
 
  		 for (i = 0; i < *nbO; i++)
  			afficherOuvrage(*tabO[i]);
