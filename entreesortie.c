@@ -1,15 +1,14 @@
 #include "lib/lib.h"
 
 Ouvrage** chargeFouvrage(FILE* fichier, int* nbO) {
-	Ouvrage **tab, **newtab, o;
+	Ouvrage **tab, **newtab;
 	int i = 0;
 
 	fscanf(fichier, "%d", nbO);
 
 	tab = (Ouvrage**) malloc(*nbO * sizeof(Ouvrage*));
-	tab[0] = (Ouvrage*) malloc(sizeof(Ouvrage));
 
-	if (tab == NULL || tab[0] == NULL) {
+	if (tab == NULL) {
 		printf("Erreur de malloc du tableau ouvrage \n");
 		free(tab);
 		exit(1);
@@ -29,6 +28,8 @@ Ouvrage** chargeFouvrage(FILE* fichier, int* nbO) {
 				free(newtab);
 				exit(1);
 			}
+			
+			*nbO += 1;
 		}
 
 		tab[i] = (Ouvrage*) malloc(sizeof(Ouvrage));
@@ -38,11 +39,8 @@ Ouvrage** chargeFouvrage(FILE* fichier, int* nbO) {
 			exit(1);
 		}
 
-		*tab[i] = o;
-		*nbO += 1;
+		*tab[i] = lireOuvrage(fichier);
 		i++;
-
-		o = lireOuvrage(fichier);
 	}
 
 	return tab;
@@ -84,6 +82,13 @@ void sauvegarde(Ouvrage* tabO[], Lecteur* tabL[], int nbO, int nbL) {
 	printf("\nSAUVEGARDE EFFECTUEE !\n");
 }
 
+void streplace(char mot[], char remplacer, char remplacant) {
+	int i;
+
+	for (i = 0; mot[i] != '\0'; i++)
+		if (mot[i] == remplacer)
+			mot[i] = remplacant;
+}
 
 int sauvegardeOuvrage(Ouvrage* tab[], int nbr) {
 	FILE* fichier = fopen("ouvrage.don", "w");
@@ -102,16 +107,10 @@ int sauvegardeOuvrage(Ouvrage* tab[], int nbr) {
 	for (i = 0; i < nbr; i++) {
 		m = *tab[i];
 		
-		////////////////// Prototype 
-		
-		//while(strlen(m.titre) < 31)
-			//strcat(m.titre,"\0");
-		//while(strlen(m.categorie) < 16)
-			//strcat(m.categorie,"\0");
-		      
-		//////////////////
-		      
-		fprintf(fichier, "%s\t%d\t%s\t%d\t%s\t", m.cote, m.quantite, m.titre, m.quantiteEmprunt, m.categorie);
+		streplace(m.titre, ' ', ':');
+		streplace(m.categorie, ' ', ':');
+
+		fprintf(fichier, "%s %s %d %s %d ", m.cote, m.titre, m.quantite, m.categorie, m.quantiteEmprunt);
 		ecrireMotClef(fichier, m.motclefs);
 	}
 
