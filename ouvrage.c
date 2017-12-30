@@ -59,14 +59,15 @@ void afficherOuvrage(Ouvrage o) {
 
 Ouvrage lireOuvrage(FILE* fichier) {
 	char serial[100] = "VIDE";
+	char temp[31], temp2[16];
 	Ouvrage o;
 
-	fscanf(fichier, "%s%*c", o.cote);
-	fgets(o.titre, sizeof(o.titre), fichier);
-	fscanf(fichier, "%d%*c", &o.quantite);
-	fgets(o.categorie, sizeof(o.categorie), fichier);
-	fscanf(fichier, "%d%*c", &o.quantiteEmprunt);
-	fscanf(fichier, "%s", serial);
+	fscanf(fichier, "%s %s %d %s %d %s", o.cote, o.titre, &o.quantite, o.categorie, &o.quantiteEmprunt, serial);
+
+	streplace(temp, ':', ' ');
+	strcpy(o.titre, temp);
+	streplace(temp2, ':', ' ');
+	strcpy(o.categorie, temp2);
 
 	o.motclefs = lireMotClef(serial);
 
