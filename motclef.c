@@ -128,7 +128,7 @@ MotClef lireMotClef(char* serial) {
 	char **motsplit = NULL;
 	int i, taille = 0;
 
-	motsplit = explode(':', serial, &taille);
+	motsplit = explit(':', serial, &taille);
 
 	for (i = 0; i < taille; i++)
 		lmot = insererEnTeteMotClef(lmot, motsplit[i]);
