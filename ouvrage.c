@@ -59,10 +59,10 @@ void afficherOuvrage(Ouvrage o) {
 
 Ouvrage lireOuvrage(FILE* fichier) {
 	char serial[100] = "VIDE";
-	char temp[31], temp2[16];
+	char temp[35], temp2[20];
 	Ouvrage o;
 
-	fscanf(fichier, "%s %s %d %s %d %s", o.cote, o.titre, &o.quantite, o.categorie, &o.quantiteEmprunt, serial);
+	fscanf(fichier, "%s %s %d %s %d %s", o.cote, temp, &o.quantite, temp2, &o.quantiteEmprunt, serial);
 
 	streplace(temp, ':', ' ');
 	strcpy(o.titre, temp);
