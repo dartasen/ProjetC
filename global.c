@@ -4,6 +4,7 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
  int choix = 0, i;
  Ouvrage o;
  Lecteur l;
+ char c;
 
  printf("**********************\n");
  printf("*    BIBLIOTHEQUE    *\n");
@@ -24,8 +25,12 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
 		
 		 o = saisirOuvrage();
 		 afficherOuvrage(o);
+		   
+		 printf("\nAjouter l'ouvrage ? (o/n)\n");
+		 scanf("%c%*c", &c);
 
-		 ajouterOuvrage(tabO, nbO, o);
+		 if (c == 'o')
+			 ajouterOuvrage(tabO, nbO, o);
 		   
 	 break;
 
