@@ -64,12 +64,13 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
 }
 
 int main(void) {
- FILE* flotOuvrage = fopen("ouvrage.don", "r");
  Ouvrage** tabO = NULL;
  Lecteur** tabL = NULL;
  int nbO = 0, nbL = 0;
-	
- if (flotOuvrage == NULL)
+
+ FILE* flotOuvrage = fopen("ouvrage.don", "r");	
+
+ if (flotOuvrage == NULL) {
 	 printf("Erreur de fopen de ouvrage.don \n");
 	 exit(1);
  }
