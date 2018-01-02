@@ -18,6 +18,12 @@ Ouvrage saisirOuvrage(void) {
 
 	printf("Saisir la quantité de livre \n");
 	scanf("%d%*c", &o.quantite);
+	
+	while (o.quantite < 0) {
+		printf("! Une quantité ne peut-être négative ! \n");
+		printf("Saisir la quantitÃ© de livre \n");
+		scanf("%d%*c", &o.quantite);
+	}
 
 	m = (MaillonMot*) malloc(sizeof(MaillonMot));
 
@@ -38,6 +44,9 @@ Ouvrage saisirOuvrage(void) {
 		scanf("%s%*c", c);
 		insererMotClef(m, c);
 	}
+	
+	if (longueurMotClef(m) == 1)
+		strcpy(m->mot, "AUCUN");
 
 	o.quantiteEmprunt = 0;
 	o.motclefs = m;
