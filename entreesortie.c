@@ -4,7 +4,7 @@ Ouvrage** chargeFouvrage(FILE* fichier, int* nbO) {
 	Ouvrage **tab, **newtab;
 	int i = 0;
 
-	fscanf(fichier, "%d", nbO);
+	fscanf(fichier, "%d%*c", nbO);
 
 	tab = (Ouvrage**) malloc(*nbO * sizeof(Ouvrage*));
 
@@ -13,8 +13,6 @@ Ouvrage** chargeFouvrage(FILE* fichier, int* nbO) {
 		free(tab);
 		exit(1);
 	}
-
-	o = lireOuvrage(fichier);
 
 	while (!feof(fichier)) {
 		if (i == *nbO) {
@@ -98,11 +96,11 @@ int sauvegardeOuvrage(Ouvrage* tab[], int nbr) {
 	if (fichier == NULL) {
 		printf("Erreur lors de l'ouverture du fichier ouvrage.don \n");
 		fclose(fichier);
-
+		
 		return -1;
 	}
 
-	fprintf(fichier, "%d\n", nbr);
+	fprintf(fichier, "%d", nbr);
 
 	for (i = 0; i < nbr; i++) {
 		m = *tab[i];
@@ -110,7 +108,7 @@ int sauvegardeOuvrage(Ouvrage* tab[], int nbr) {
 		streplace(m.titre, ' ', ':');
 		streplace(m.categorie, ' ', ':');
 
-		fprintf(fichier, "%s %s %d %s %d ", m.cote, m.titre, m.quantite, m.categorie, m.quantiteEmprunt);
+		fprintf(fichier, "\n%s %s %d %s %d ", m.cote, m.titre, m.quantite, m.categorie, m.quantiteEmprunt);
 		ecrireMotClef(fichier, m.motclefs);
 	}
 
