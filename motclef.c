@@ -82,7 +82,7 @@ void afficherMotClef(MotClef m) {
 
 void ecrireMotClef(FILE* fichier, MotClef m) {
 	if (m->suiv == NULL) {
-		fprintf(fichier, "%s\n", m->mot);
+		fprintf(fichier, "%s", m->mot);
 		return;
 	}
 
