@@ -30,7 +30,7 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
 		 scanf("%c%*c", &c);
 
 		 if (c == 'o')
-			 ajouterOuvrage(tabO, nbO, o);
+			 tabO = ajouterOuvrage(tabO, nbO, o);
 		   
 	 break;
 
