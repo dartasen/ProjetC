@@ -20,8 +20,8 @@ Ouvrage saisirOuvrage(void) {
 	scanf("%d%*c", &o.quantite);
 
 	while (o.quantite < 0) {
-		printf("! Une quantité ne peut-être négative ! \n");
-		printf("Saisir la quantitÃ© de livre \n");
+		printf("! Une quantitÃ© ne peut-Ãªtre nÃ©gative ! \n");
+		printf("Saisir la quantitÃƒÂ© de livre \n");
 		scanf("%d%*c", &o.quantite);
 	}
 
@@ -32,7 +32,7 @@ Ouvrage saisirOuvrage(void) {
 		exit(1);
 	}
 
-	printf("Saisir les mot-clefs non composÃ©s du livre (:q pour quitter) \n");
+	printf("Saisir les mot-clefs non composÃƒÂ©s du livre (:q pour quitter) \n");
 	printf("Saisie > ");
 	
 	scanf("%s%*c", c);
@@ -58,9 +58,9 @@ Ouvrage saisirOuvrage(void) {
 
 void afficherOuvrage(Ouvrage o) {
 	printf("%s \n", o.titre);
-	printf("> CÃ´te : %s \n", o.cote);
-	printf("> CatÃ©gorie : %s \n", o.categorie);
-	printf("> QuantitÃ© : %d (- %d) \n", o.quantite, o.quantiteEmprunt);
+	printf("> CÃƒÂ´te : %s \n", o.cote);
+	printf("> CatÃƒÂ©gorie : %s \n", o.categorie);
+	printf("> QuantitÃƒÂ© : %d (- %d) \n", o.quantite, o.quantiteEmprunt);
 	afficherMotClef(o.motclefs);
 
 	printf("\n");
