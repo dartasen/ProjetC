@@ -57,7 +57,7 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
 }
 
 Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
-	int choix = 0, i;
+	int choix = 0, i, choix2 = 0;
 	Ouvrage o;
 	char c, cote[21];
 
@@ -70,7 +70,8 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 
 		printf("1) Saisir un ouvrage\n");
 		printf("2) Supprimer un ouvrage\n");
-		printf("3) Afficher les ouvrages\n");
+		printf("3) Modifier un ouvrage\n");
+		printf("4) Afficher les ouvrages\n");
 		printf("8) Retourner au menu \n");
 
 		printf("\nVotre choix > ");
@@ -93,7 +94,7 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 
 			case 2:
 
-				printf("Saisir la cÃ´te de l'ouvrage Ã  supprimer \n");
+				printf("\nSaisir la cÃ´te de l'ouvrage Ã  supprimer \n");
 				scanf("%s%*c", cote);
 
 				i = rechercherOuvrage(cote, tabO, *nbO);
@@ -101,7 +102,7 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 				printf("\n");
 
 				if (i == -1) {
-					printf("Impossible de supprimer cette ouvrage car il n'existe pas !\n");
+					printf("Impossible de supprimer cet ouvrage car il n'existe pas !\n");
 					break;
 				}
 
@@ -116,6 +117,71 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 
 			case 3:
 
+				printf("\nSaisir la cote de l'ouvrage à modifier \n");
+				scanf("%s%*c", cote);
+
+				i = rechercherOuvrage(cote, tabO, *nbO);
+
+				if (i == -1) {
+					printf("\nImpossible de modifier cet ouvrage car il n'existe pas !\n");
+					break;
+				}
+
+				Ouvrage o = *tabO[i];
+
+				while (choix2 != 8) {
+					printf("\n1) Modifier le titre | 2) Modifier la catégorie | 3) Modifier la quantité | 8) Quitter \nVotre choix > ");
+					scanf("%d%*c", &choix2);
+
+					switch (choix2) {
+						case 1:
+								printf("\n> Titre actuel : %s\n> Nouveau titre : ", o.titre);
+								fgets(o.titre, sizeof(o.titre), stdin);
+								o.titre[strlen(o.titre) - 1] = '\0';
+
+								printf("\nLe titre de l'ouvrage a été modifié !\n");
+						break;
+
+						case 2:
+								printf("\n> Catégorie actuel : %s\n> Nouvelle catégorie : ", o.categorie);
+								fgets(o.categorie, sizeof(o.categorie), stdin);
+								o.categorie[strlen(o.categorie) - 1] = '\0';
+
+								printf("\nLa catégorie de l'ouvrage a été modifiée !\n");
+						break;
+
+						case 3:
+								printf("\nQuantité actuelle : %d\n> Nouvelle quantité : ", o.quantite);
+								scanf("%d", &o.quantite);
+
+								printf("\nLa quantité de l'ouvrage a été modifiée ! \n");
+						break;
+
+						case 8:
+
+								printf("\n");
+								afficherOuvrage(o);
+
+								printf("Modifier l'ouvrage ? (o/n)\n");
+								scanf("%c%*c", &c);
+
+								if (c == 'o')
+									*tabO[i] = o;
+
+						break;
+
+						default:
+
+								printf("\nMerci de rentrer un choix correct \n");
+
+						break;
+					}
+				}
+
+			break;
+
+			case 4:
+
 				 printf("\nAffichage de %d Ouvrages \n\n", *nbO);
 
 				 for (i = 0; i < *nbO; i++)
@@ -129,7 +195,7 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 
 			default:
 
-				 printf("Merci de rentrer un choix correct \n");
+				 printf("\nMerci de rentrer un choix correct \n");
 
 			break;
 		}
