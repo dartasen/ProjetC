@@ -5,20 +5,20 @@ Ouvrage saisirOuvrage(void) {
 	char c[20];
 	Ouvrage o;
 
-	printf("\nSaisir la côte de l'ouvrage \n");
+	printf("\nSaisir la cote de l'ouvrage (non compose)\n");
 	scanf("%s%*c", o.cote);
 
 	printf("Saisir le titre du livre \n");
 	fgets(o.titre, sizeof(o.titre), stdin);
 	o.titre[strlen(o.titre) - 1] = '\0';
 
-	printf("Saisir le nom de la catégorie \n");
+	printf("Saisir le nom de la categorie \n");
 	fgets(o.categorie, sizeof(o.categorie), stdin);
 	o.categorie[strlen(o.categorie) - 1] = '\0';
 
-	printf("Saisir la quantité de livre \n");
+	printf("Saisir la quantite de livre \n");
 	scanf("%d%*c", &o.quantite);
-	
+
 	while (o.quantite < 0) {
 		printf("! Une quantité ne peut-être négative ! \n");
 		printf("Saisir la quantitÃ© de livre \n");
@@ -32,7 +32,7 @@ Ouvrage saisirOuvrage(void) {
 		exit(1);
 	}
 
-	printf("Saisir les mot-clefs non composés du livre (:q pour quitter) \n");
+	printf("Saisir les mot-clefs non composÃ©s du livre (:q pour quitter) \n");
 	printf("Saisie > ");
 	
 	scanf("%s%*c", c);
@@ -44,7 +44,7 @@ Ouvrage saisirOuvrage(void) {
 		scanf("%s%*c", c);
 		insererMotClef(m, c);
 	}
-	
+
 	if (longueurMotClef(m) == 1)
 		strcpy(m->mot, "AUCUN");
 
@@ -58,16 +58,16 @@ Ouvrage saisirOuvrage(void) {
 
 void afficherOuvrage(Ouvrage o) {
 	printf("%s \n", o.titre);
-	printf("> Côte : %s \n", o.cote);
-	printf("> Catégorie : %s \n", o.categorie);
-	printf("> Quantité : %d (- %d) \n", o.quantite, o.quantiteEmprunt);
+	printf("> CÃ´te : %s \n", o.cote);
+	printf("> CatÃ©gorie : %s \n", o.categorie);
+	printf("> QuantitÃ© : %d (- %d) \n", o.quantite, o.quantiteEmprunt);
 	afficherMotClef(o.motclefs);
 
 	printf("\n");
 }
 
 Ouvrage lireOuvrage(FILE* fichier) {
-	char serial[100] = "VIDE";
+	char serial[100] = "AUCUN";
 	char temp[35], temp2[20];
 	Ouvrage o;
 
@@ -81,4 +81,61 @@ Ouvrage lireOuvrage(FILE* fichier) {
 	o.motclefs = lireMotClef(serial);
 
 	return o;
+}
+
+Ouvrage** ajouterOuvrage(Ouvrage** tab, int* nbO, Ouvrage o) {
+	Ouvrage **aux;
+
+	aux = (Ouvrage**) realloc(tab, (*nbO + 1) * sizeof(Ouvrage*));
+
+	if (aux == NULL) {
+		printf("Erreur de ralloc du tab ouvrage \n");
+		free(aux);
+		exit(1);
+	}
+
+	aux[*nbO] = (Ouvrage*) malloc(sizeof(Ouvrage));
+
+	if (aux[*nbO] == NULL) {
+		printf("Erreur de malloc d'un ouvrage \n");
+		exit(1);
+	}
+
+	*aux[*nbO] = o;
+	*nbO += 1;
+
+	return aux;
+}
+
+int rechercherOuvrage(char cote[], Ouvrage* tabO[], int nbO) {
+	int i;
+
+	for (i = 0; i < nbO; i++)
+		if (strcmp((*tabO[i]).cote, cote) == 0)
+			return i;
+
+	return -1;
+}
+
+Ouvrage** supprimerOuvrage(Ouvrage* tabO[], int* nbO, int i) {
+	Ouvrage** aux;
+	int j;
+
+	free(&(*tabO[i]));
+	free(tabO[i]);
+
+	for (j = i; j <= *nbO-1; j++)
+		tabO[j] = tabO[j+1];
+
+	aux = (Ouvrage**) realloc(tabO, (*nbO - 1) * sizeof(Ouvrage*));
+
+	if (aux == NULL) {
+		printf("Erreur de ralloc du tab ouvrage \n");
+		free(aux);
+		exit(1);
+	}
+
+	*nbO -= 1;
+
+	return aux;
 }
