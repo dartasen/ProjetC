@@ -1,20 +1,18 @@
 #include "lib/lib.h"
 
 void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
- int choix = 0, i;
- Ouvrage o;
+ int choix = 0;
  Lecteur l;
  char c;
 
- printf("**********************\n");
- printf("*    BIBLIOTHEQUE    *\n");
- printf("**********************\n\n");
-
  while (choix != 8) {
 
-   printf("1) Saisir un ouvrage\n");
+   printf("**********************\n");
+   printf("*    BIBLIOTHEQUE    *\n");
+   printf("**********************\n\n");
+
+   printf("1) Gestion des ouvrages\n");
    printf("2) Saisir un lecteur\n");
-   printf("3) Affiche les ouvrages\n");
    printf("8) Quitter \n");
 
    printf("\nVotre choix > ");
@@ -23,15 +21,9 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
    switch(choix) {
 	 case 1:
 		
-		 o = saisirOuvrage();
-		 afficherOuvrage(o);
-		   
-		 printf("\nAjouter l'ouvrage ? (o/n)\n");
-		 scanf("%c%*c", &c);
+		 tabO = SousMenuOuvrage(tabO, nbO);
+		 system("clear");
 
-		 if (c == 'o')
-			 tabO = ajouterOuvrage(tabO, nbO, o);
-		   
 	 break;
 
  	 case 2:
@@ -39,23 +31,19 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
  		 l = saisirLecteur();
  		 afficheLecteur(l);
 
- 	 break;
+		 printf("\nAjouter le lecteur ? (o/n)\n");
+		 scanf("%c%*c", &c);
 
- 	 case 3:
+		 if (c == 'o')
+			 c += 1;
 
- 		 printf("\nAffichage de %d Ouvrages \n\n", *nbO);
-
- 		 for (i = 0; i < *nbO; i++)
- 			afficherOuvrage(*tabO[i]);
+		 system("clear");
 
  	 break;
 
  	 case 8:
 
- 		 printf("Sortie du programme \n");
  		 sauvegarde(tabO, tabL, *nbO, *nbL);
-
- 		 return;
 
 	 break;
 
@@ -68,12 +56,87 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
   }
 }
 
+Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
+	int choix = 0, i;
+	Ouvrage o;
+	char c, cote[21];
+
+	while (choix != 8) {
+		system("clear");
+
+		printf("**********************\n");
+		printf("*      OUVRAGES      *\n");
+		printf("**********************\n\n");
+
+		printf("1) Saisir un ouvrage\n");
+		printf("2) Supprimer un ouvrage\n");
+		printf("3) Afficher les ouvrages\n");
+		printf("8) Retourner au menu \n");
+
+		printf("\nVotre choix > ");
+		scanf("%d", &choix);
+
+		switch (choix) {
+
+			case 1:
+
+				 o = saisirOuvrage();
+				 afficherOuvrage(o);
+
+				 printf("\nAjouter l'ouvrage ? (o/n)\n");
+				 scanf("%c%*c", &c);
+
+				 if (c == 'o')
+					 tabO = ajouterOuvrage(tabO, nbO, o);
+
+			break;
+
+			case 2:
+
+				printf("Saisir la côte de l'ouvrage à supprimer \n Côte :");
+				scanf("%s%*c", cote);
+
+				i = rechercherOuvrage(cote, tabO, *nbO);
+
+				if (i == -1)
+					printf("\n Impossible de supprimer cette ouvrage car il n'existe pas !\n");
+				else
+					tabO = supprimerOuvrage(tabO, nbO, i);
+
+				system("pause");
+
+			break;
+
+			case 3:
+
+				 printf("\nAffichage de %d Ouvrages \n\n", *nbO);
+
+				 for (i = 0; i < *nbO; i++)
+					afficherOuvrage(*tabO[i]);
+
+				 system("pause");
+
+			break;
+
+			case 8: break;
+
+			default:
+
+				 printf("Merci de rentrer un choix correct \n");
+
+			break;
+		}
+	}
+
+	return tabO;
+}
+
 int main(void) {
  Ouvrage** tabO = NULL;
  Lecteur** tabL = NULL;
  int nbO = 0, nbL = 0;
 
- FILE* flotOuvrage = fopen("ouvrage.don", "r");	
+ FILE* flotOuvrage = fopen("ouvrage.don", "r");
 
  if (flotOuvrage == NULL) {
 	 printf("Erreur de fopen de ouvrage.don \n");
@@ -85,6 +148,8 @@ int main(void) {
  menu(tabO, tabL, &nbO, &nbL);
 
  fclose(flotOuvrage);
+
+ system("pause");
 
  return 0;
 }
