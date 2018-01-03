@@ -98,7 +98,7 @@ char** explit(char delimiteur, char* mot, int* taille) {
 	tabmot[0] = (char*) malloc(longueur * sizeof(char));
 
 	if (tabmot == NULL) {
-		printf("Erreur de malloc pour le explode \n");
+		printf("Erreur de malloc pour le explit\n");
 		exit(1);
 	}
 
