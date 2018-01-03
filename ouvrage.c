@@ -127,15 +127,15 @@ Ouvrage** supprimerOuvrage(Ouvrage* tabO[], int* nbO, int i) {
 	for (j = i; j <= *nbO-1; j++)
 		tabO[j] = tabO[j+1];
 
-	aux = (Ouvrage**) realloc(tabO, (*nbO - 1) * sizeof(Ouvrage*));
+	*nbO -= 1;
 
-	if (aux == NULL) {
+	aux = (Ouvrage**) realloc(tabO, (*nbO) * sizeof(Ouvrage*));
+
+	if (aux == NULL && *nbO > 0) {
 		printf("Erreur de ralloc du tab ouvrage \n");
 		free(aux);
 		exit(1);
 	}
-
-	*nbO -= 1;
 
 	return aux;
 }
