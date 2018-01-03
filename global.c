@@ -93,13 +93,13 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 
 			case 2:
 
-				printf("Saisir la côte de l'ouvrage à supprimer \n Côte :");
+				printf("Saisir la côte de l'ouvrage à supprimer \n");
 				scanf("%s%*c", cote);
 
 				i = rechercherOuvrage(cote, tabO, *nbO);
 
 				if (i == -1)
-					printf("\n Impossible de supprimer cette ouvrage car il n'existe pas !\n");
+					printf("\nImpossible de supprimer cette ouvrage car il n'existe pas !\n");
 				else
 					tabO = supprimerOuvrage(tabO, nbO, i);
 
