@@ -22,7 +22,7 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
 	 case 1:
 		
 		 tabO = SousMenuOuvrage(tabO, nbO);
-		 system("clear");
+		 system("cls");
 
 	 break;
 
@@ -37,7 +37,7 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
 		 if (c == 'o')
 			 c += 1;
 
-		 system("clear");
+		 system("cls");
 
  	 break;
 
@@ -62,7 +62,7 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 	char c, cote[21];
 
 	while (choix != 8) {
-		system("clear");
+		system("cls");
 
 		printf("**********************\n");
 		printf("*      OUVRAGES      *\n");
@@ -83,7 +83,7 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 				 o = saisirOuvrage();
 				 afficherOuvrage(o);
 
-				 printf("\nAjouter l'ouvrage ? (o/n)\n");
+				 printf("Ajouter l'ouvrage ? (o/n)\n");
 				 scanf("%c%*c", &c);
 
 				 if (c == 'o')
@@ -93,17 +93,24 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 
 			case 2:
 
-				printf("Saisir la côte de l'ouvrage à supprimer \n");
+				printf("Saisir la cÃ´te de l'ouvrage Ã  supprimer \n");
 				scanf("%s%*c", cote);
 
 				i = rechercherOuvrage(cote, tabO, *nbO);
 
-				if (i == -1)
-					printf("\nImpossible de supprimer cette ouvrage car il n'existe pas !\n");
-				else
-					tabO = supprimerOuvrage(tabO, nbO, i);
+				printf("\n");
 
-				system("pause");
+				if (i == -1) {
+					printf("Impossible de supprimer cette ouvrage car il n'existe pas !\n");
+					break;
+				}
+
+				afficherOuvrage(*tabO[i]);
+				printf("Supprimer l'ouvrage ? (o/n)\n");
+				scanf("%c%*c", &c);
+
+				if (c == 'o')
+					tabO = supprimerOuvrage(tabO, nbO, i);
 
 			break;
 
@@ -114,11 +121,11 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 				 for (i = 0; i < *nbO; i++)
 					afficherOuvrage(*tabO[i]);
 
-				 system("pause");
-
 			break;
 
-			case 8: break;
+			case 8:
+				 return tabO;
+			break;
 
 			default:
 
@@ -126,6 +133,8 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 
 			break;
 		}
+
+		system("pause");
 	}
 
 	return tabO;
