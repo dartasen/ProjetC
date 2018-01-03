@@ -51,30 +51,6 @@ Ouvrage** chargeFouvrage(FILE* fichier, int* nbO) {
 	return tab;
 }
 
-Ouvrage** ajouterOuvrage(Ouvrage** tab, int* nbO, Ouvrage o) {
-	Ouvrage **aux;
-
-	aux = (Ouvrage**) realloc(tab, (*nbO + 1) * sizeof(Ouvrage*));
-
-	if (aux == NULL) {
-		printf("Erreur de ralloc du tab ouvrage \n");
-		free(aux);
-		exit(1);
-	}
-
-	aux[*nbO] = (Ouvrage*) malloc(sizeof(Ouvrage));
-
-	if (aux[*nbO] == NULL) {
-		printf("Erreur de malloc d'un ouvrage \n");
-		exit(1);
-	}
-
-	*aux[*nbO] = o;
-	*nbO += 1;
-
-	return aux;
-}
-
 void sauvegarde(Ouvrage* tabO[], Lecteur* tabL[], int nbO, int nbL) {
 	int etat = 0;
 
