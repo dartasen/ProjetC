@@ -5,12 +5,12 @@
 
 Fonctionnalités demandées :
 - [ ]  Chargement des fichiers (Clément)
-- [ x ] Gestion des ouvrages (Clément)
+- [x] Gestion des ouvrages (Clément)
 - [ ]  Inscription d'un nouveau lecteur (Maxime)
 - [ ]  Suppression d'un lecteur (Maxime)
 - [ ]  Enregistrement d'un nouvel emprunt (Romain)
-[ x ]  Liste des lecteurs par ordre alphabétique (nom + prénom) (Clément)
-- [ ]  Sauvegarde des fichiers (Clément)
+- [x]  Liste des lecteurs par ordre alphabétique (nom + prénom) (Clément)
+- [ ]  Sauvegarde des fichiers (Romain)
 
 Fonctionnalités suplémentaires :
 * Modification d'une adresse
