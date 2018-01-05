@@ -22,6 +22,7 @@ typedef struct {
 	int numLecteur;
 	char nom[31];
 	char prenom[31];
+	int nbEmprunt;
 	Emprunt emprunt;
 } Lecteur;
 
