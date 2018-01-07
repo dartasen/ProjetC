@@ -114,3 +114,54 @@ int sauvegardeLecteur(Lecteur* tab[], int nbr) {
 
 	return 1;
 }
+//sauvegarde Binaire
+void sauvegardeBinLecteur(Lecteur **tab, int nbLecteur,FILE *flot)
+{
+	int i;
+	fwrite(&nbLecteur,sizeof(int),1,flot);
+	for (i=0; i<nbLecteur; i++)
+	{
+		fwrite(tab[i],sizeof(Lecteur),1,flot);
+		sauvegardeBinEmprunt(tab[i]->emprunt,tab[i]->nbEmprunt,flot);
+	}
+}
+void sauvegardeBinEmprunt(Emprunt le, int nbEmprunt, FILE *flot)
+{
+	if (le == NULL)
+		return;
+	if (le->suiv == NULL)
+	{
+		fwrite(&le,sizeof(Emprunt),1,flot);
+		return;
+	}
+	fwrite(&le,sizeof(Emprunt),1,flot);
+	sauvegardeBinEmprunt(le->suiv,nbEmprunt-1,flot);
+}
+Emprunt chargerBinEmprunt(FILE *flot, int nbElem)
+{
+		int i;
+		Emprunt l, l2;
+		l=empruntVide();
+		printf("%d",nbElem);
+		for (i=0; i<nbElem;i++)
+		{
+			fread(&l2, sizeof(Emprunt),1,flot);
+			//l=insererEmprunt(l,l2->cote);
+			l=insererEnTeteEmpruntBin(l, l2->cote,l2->date);
+		}
+		return l;
+}
+Lecteur ** chargementBinLecteur(FILE *flot)
+{
+	int i,nbLecteur;
+	Lecteur **tab, enCours;
+	nbLecteur = fread(&nbLecteur,sizeof(int),1,flot);
+	tab = (Lecteur **) malloc(sizeof(Lecteur *));
+	for (i=0; i<nbLecteur; i++)
+	{
+		tab[i]= (Lecteur *)malloc(sizeof(Lecteur));
+		fread(tab[i],sizeof(Lecteur),1,flot);
+		tab[i]->emprunt=chargerBinEmprunt(flot,tab[i]->nbEmprunt);
+	}
+	return tab;
+}
