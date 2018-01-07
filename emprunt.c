@@ -18,6 +18,28 @@ Emprunt EmpruntVide(void) {
 
 Emprunt insererEnTeteEmprunt(Emprunt m, char cote[]) {
 	Emprunt aux = (Emprunt) malloc(sizeof(MaillonEmprunt));
+	time_t secondes;
+	struct tm maintenant;
+	time(&secondes);
+	maintenant = *localtime(&secondes);
+
+	if (aux == NULL) {
+	    printf("Erreur de malloc de Emprunt \n");
+	    exit(1);
+	}
+
+	strcpy(aux->cote, cote);
+	aux->date.j = maintenant.tm_mday;
+	aux->date.m = maintenant.tm_mon +1;
+	aux->date.a = maintenant.tm_year + 1900;
+	aux->suiv = m;
+
+	return aux;
+}
+
+/* //acienne version
+Emprunt insererEnTeteEmprunt(Emprunt m, char cote[]) {
+	Emprunt aux = (Emprunt) malloc(sizeof(MaillonEmprunt));
 
 	if (aux == NULL) {
 	    printf("Erreur de malloc de Emprunt \n");
@@ -30,6 +52,21 @@ Emprunt insererEnTeteEmprunt(Emprunt m, char cote[]) {
 	aux->date.a = system("date +%Y");
 	aux->suiv = m;
 
+	return aux;
+}
+*/
+//inserer enTeteEmprunt pour fichier Binaire
+Emprunt insererEnTeteEmpruntBin(Emprunt m, char cote[], Date date)
+{
+	Emprunt aux = (Emprunt) malloc(sizeof(MaillonEmprunt));
+	if (aux==NULL)
+	{
+		printf("Erreur malloc emprunt \n");
+		exit(1);
+	}
+	strcpy(aux->cote,cote);
+	aux->date = date;
+	aux->suiv=m;
 	return aux;
 }
 
