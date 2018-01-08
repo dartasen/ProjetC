@@ -15,8 +15,6 @@ Ouvrage** chargeFouvrage(FILE* fichier, int* nbO) {
 	}
 
 	while (!feof(fichier)) {
-		
-		// Sécurité contre les \n fantômes
 		if (i > (*nbO - 1)) {
 		 	printf("Une erreur est survenue, le nombre déclaré en tête de fichier a été dépassé lors du parcourement de fichier\n");
 			break;
