@@ -49,8 +49,6 @@ Ouvrage** chargeFouvrage(FILE* fichier, int* nbO) {
 	return tab;
 }
 
-//bite
-
 void sauvegarde(Ouvrage* tabO[], Lecteur* tabL[], int nbO, int nbL) {
 	int etat = 0;
 
@@ -101,7 +99,8 @@ int sauvegardeOuvrage(Ouvrage* tab[], int nbr) {
 }
 
 int sauvegardeLecteur(Lecteur* tab[], int nbr) {
-	FILE* fichier = fopen("lecteur.don", "w");
+	FILE* fichier = fopen("lecteur.don", "wb");
+	int i;
 
 	if (fichier == NULL) {
 		printf("Erreur lors de l'ouverture du fichier lecteur.don \n");
@@ -109,22 +108,19 @@ int sauvegardeLecteur(Lecteur* tab[], int nbr) {
 
 		return -1;
 	}
+	
+	fwrite(&nbLecteur,sizeof(int),1,flot);
+	
+	for (i=0; i<nbLecteur; i++){
+		fwrite(tab[i],sizeof(Lecteur),1,flot);
+		sauvegardeBinEmprunt(tab[i]->emprunt,tab[i]->nbEmprunt,flot);
+	}
 
 	fclose(fichier);
 
 	return 1;
 }
-//sauvegarde Binaire
-void sauvegardeBinLecteur(Lecteur **tab, int nbLecteur,FILE *flot)
-{
-	int i;
-	fwrite(&nbLecteur,sizeof(int),1,flot);
-	for (i=0; i<nbLecteur; i++)
-	{
-		fwrite(tab[i],sizeof(Lecteur),1,flot);
-		sauvegardeBinEmprunt(tab[i]->emprunt,tab[i]->nbEmprunt,flot);
-	}
-}
+
 void sauvegardeBinEmprunt(Emprunt le, int nbEmprunt, FILE *flot)
 {
 	if (le == NULL)
