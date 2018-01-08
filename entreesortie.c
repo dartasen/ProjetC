@@ -49,6 +49,8 @@ Ouvrage** chargeFouvrage(FILE* fichier, int* nbO) {
 	return tab;
 }
 
+//bite
+
 void sauvegarde(Ouvrage* tabO[], Lecteur* tabL[], int nbO, int nbL) {
 	int etat = 0;
 
