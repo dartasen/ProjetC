@@ -16,7 +16,7 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
    printf("8) Quitter \n");
 
    printf("\nVotre choix > ");
-   scanf("%d", &choix);
+   scanf("%d%*c", &choix);
 
    switch(choix) {
 	 case 1:
@@ -58,8 +58,9 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
 
 Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 	int choix = 0, i, choix2 = 0;
-	Ouvrage o;
+	MotClef m = NULL;
 	char c, cote[21];
+	Ouvrage o;
 
 	while (choix != 8) {
 		system("clear");
@@ -75,7 +76,7 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 		printf("8) Retourner au menu \n");
 
 		printf("\nVotre choix > ");
-		scanf("%d", &choix);
+		scanf("%d%*c", &choix);
 
 		switch (choix) {
 
@@ -95,7 +96,7 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 
 			case 2:
 
-				printf("\nSaisir la cÃ´te de l'ouvrage Ã  supprimer \n");
+				printf("\nSaisir la côte de l'ouvrage à supprimer \n");
 				scanf("%s%*c", cote);
 
 				i = rechercherOuvrage(cote, tabO, *nbO);
@@ -128,12 +129,11 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 					break;
 				}
 				
+				Ouvrage o = *tabO[i];
 				choix2 = 0;
 
-				Ouvrage o = *tabO[i];
-
 				while (choix2 != 8) {
-					printf("\n1) Modifier le titre | 2) Modifier la catégorie | 3) Modifier la quantité | 8) Quitter \nVotre choix > ");
+					printf("\n1) Modifier le titre | 2) Modifier la catégorie | 3) Modifier la quantité | 4) Modifier les mots clefs | 8) Quitter \n\nVotre choix > ");
 					scanf("%d%*c", &choix2);
 
 					switch (choix2) {
@@ -165,6 +165,38 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 
 								printf("\nLa quantité de l'ouvrage a été modifiée ! \n");
 						break;
+							
+						case 4:
+								m = (MaillonMot*) malloc(sizeof(MaillonMot));
+
+								if (m == NULL) {
+									printf("Erreur de malloc des MotClefs \n");
+									exit(1);
+								}
+			
+								printf("\n> Mots-Clefs actuels :");
+							        afficherMotClef(o.motclefs);
+
+								printf("> Nouveau Mots-Clefs (:q pour quitter) \n");
+								printf("Saisie > ");
+	
+								scanf("%s%*c", cote);
+								strcpy(m->mot, cote);
+								m->suiv = NULL;
+
+								while (strcmp(cote, ":q") != 0) {
+									printf("Saisie > ");
+									scanf("%s%*c", cote);
+									insererMotClef(m, cote);
+								}
+
+								if (longueurMotClef(m) == 1 && strcmp(cote,":q") != 0)
+									strcpy(m->mot, "AUCUN");
+								
+								supprimerMC(o.motclefs);
+								o.motclefs = m;
+
+						break;
 
 						case 8:
 
@@ -182,6 +214,7 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 						default:
 
 								printf("\nMerci de rentrer un choix correct \n");
+								choix = 0;
 
 						break;
 					}
