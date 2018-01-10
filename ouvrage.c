@@ -84,7 +84,13 @@ Ouvrage lireOuvrage(FILE* fichier) {
 }
 
 Ouvrage** ajouterOuvrage(Ouvrage** tab, int* nbO, Ouvrage o) {
+	int i = rechercherOuvrage(cote, tabO, *nbO);
 	Ouvrage **aux;
+
+	if (i != -1) {
+		printf("Impossible d'ajouter cette ouvrage car il existe déjà !\n");
+		return tab;
+	}
 
 	aux = (Ouvrage**) realloc(tab, (*nbO + 1) * sizeof(Ouvrage*));
 
