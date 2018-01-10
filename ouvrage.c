@@ -5,23 +5,23 @@ Ouvrage saisirOuvrage(void) {
 	char c[20];
 	Ouvrage o;
 
-	printf("\nSaisir la cote de l'ouvrage (non compose)\n");
+	printf("\nSaisir la côte de l'ouvrage (non composée)\n");
 	scanf("%s%*c", o.cote);
 
 	printf("Saisir le titre du livre \n");
 	fgets(o.titre, sizeof(o.titre), stdin);
 	o.titre[strlen(o.titre) - 1] = '\0';
 
-	printf("Saisir le nom de la categorie \n");
+	printf("Saisir le nom de la catégorie \n");
 	fgets(o.categorie, sizeof(o.categorie), stdin);
 	o.categorie[strlen(o.categorie) - 1] = '\0';
 
-	printf("Saisir la quantite de livre \n");
+	printf("Saisir la quantité de livre \n");
 	scanf("%d%*c", &o.quantite);
 
 	while (o.quantite < 0) {
-		printf("! Une quantitÃ© ne peut-Ãªtre nÃ©gative ! \n");
-		printf("Saisir la quantitÃƒÂ© de livre \n");
+		printf("! Une quantité ne peut-Ãªtre négative ! \n");
+		printf("Saisir la quantité de livre \n");
 		scanf("%d%*c", &o.quantite);
 	}
 
@@ -32,7 +32,7 @@ Ouvrage saisirOuvrage(void) {
 		exit(1);
 	}
 
-	printf("Saisir les mot-clefs non composÃƒÂ©s du livre (:q pour quitter) \n");
+	printf("Saisir les mot-clefs non composés du livre (:q pour quitter) \n");
 	printf("Saisie > ");
 	
 	scanf("%s%*c", c);
@@ -45,7 +45,7 @@ Ouvrage saisirOuvrage(void) {
 		insererMotClef(m, c);
 	}
 
-	if (longueurMotClef(m) == 1)
+	if (longueurMotClef(m) == 1 && strcmp(c,":q") != 0)
 		strcpy(m->mot, "AUCUN");
 
 	o.quantiteEmprunt = 0;
@@ -58,9 +58,9 @@ Ouvrage saisirOuvrage(void) {
 
 void afficherOuvrage(Ouvrage o) {
 	printf("%s \n", o.titre);
-	printf("> CÃƒÂ´te : %s \n", o.cote);
-	printf("> CatÃƒÂ©gorie : %s \n", o.categorie);
-	printf("> QuantitÃƒÂ© : %d (- %d) \n", o.quantite, o.quantiteEmprunt);
+	printf("> Côte : %s \n", o.cote);
+	printf("> Catégorie : %s \n", o.categorie);
+	printf("> Quantité : %d (- %d) \n", o.quantite, o.quantiteEmprunt);
 	afficherMotClef(o.motclefs);
 
 	printf("\n");
@@ -121,7 +121,7 @@ Ouvrage** supprimerOuvrage(Ouvrage* tabO[], int* nbO, int i) {
 	Ouvrage** aux;
 	int j;
 
-	free(&(*tabO[i]));
+	//free(&(*tabO[i]));
 	free(tabO[i]);
 
 	for (j = i; j <= *nbO-1; j++)
