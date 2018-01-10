@@ -22,7 +22,7 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
 	 case 1:
 		
 		 tabO = SousMenuOuvrage(tabO, nbO);
-		 system("cls");
+		 system("clear");
 
 	 break;
 
@@ -37,7 +37,7 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
 		 if (c == 'o')
 			 c += 1;
 
-		 system("cls");
+		 system("clear");
 
  	 break;
 
@@ -62,7 +62,7 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 	char c, cote[21];
 
 	while (choix != 8) {
-		system("cls");
+		system("clear");
 
 		printf("**********************\n");
 		printf("*      OUVRAGES      *\n");
@@ -89,7 +89,8 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 
 				 if (c == 'o')
 					 tabO = ajouterOuvrage(tabO, nbO, o);
-
+				
+				continue;
 			break;
 
 			case 2:
@@ -200,7 +201,8 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 			break;
 		}
 
-		system("pause");
+ 		 printf("Appuyez sur une touche pour continuer\n");
+		 system("read osef");
 	}
 
 	return tabO;
@@ -210,6 +212,8 @@ int main(void) {
  Ouvrage** tabO = NULL;
  Lecteur** tabL = NULL;
  int nbO = 0, nbL = 0;
+
+ system("osef=0");
 
  FILE* flotOuvrage = fopen("ouvrage.don", "r");
 
@@ -224,7 +228,8 @@ int main(void) {
 
  fclose(flotOuvrage);
 
- system("pause");
+ printf("Appuyez sur une touche pour continuer\n");
+ system("read osef");
 
  return 0;
 }
