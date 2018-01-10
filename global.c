@@ -127,6 +127,8 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 					printf("\nImpossible de modifier cet ouvrage car il n'existe pas !\n");
 					break;
 				}
+				
+				choix2 = 0;
 
 				Ouvrage o = *tabO[i];
 
@@ -153,7 +155,13 @@ Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
 
 						case 3:
 								printf("\nQuantité actuelle : %d\n> Nouvelle quantité : ", o.quantite);
-								scanf("%d", &o.quantite);
+								scanf("%d%*c", &o.quantite);
+
+								while (o.quantite < 0) {
+									printf("! Une quantité ne peut-être négative ! \n");
+									printf("Saisir la quantité de livre \n");
+									scanf("%d%*c", &o.quantite);
+								}
 
 								printf("\nLa quantité de l'ouvrage a été modifiée ! \n");
 						break;
