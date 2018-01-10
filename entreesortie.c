@@ -86,8 +86,8 @@ int sauvegardeOuvrage(Ouvrage* tab[], int nbr) {
 	for (i = 0; i < nbr; i++) {
 		m = *tab[i];
 		
-		streplace(m.titre, ' ', ':');
-		streplace(m.categorie, ' ', ':');
+		streplace(m.titre, ' ', '~');
+		streplace(m.categorie, ' ', '~');
 
 		fprintf(fichier, "\n%s %s %d %s %d ", m.cote, m.titre, m.quantite, m.categorie, m.quantiteEmprunt);
 		ecrireMotClef(fichier, m.motclefs);
@@ -98,13 +98,13 @@ int sauvegardeOuvrage(Ouvrage* tab[], int nbr) {
 	return 1;
 }
 
-int sauvegardeLecteur(Lecteur* tab[], int nbr) {
-	FILE* fichier = fopen("lecteur.don", "wb");
+int sauvegardeLecteur(Lecteur* tab[], int nbLecteur) {
+	FILE* flot = fopen("lecteur.don", "wb");
 	int i;
 
-	if (fichier == NULL) {
+	if (flot == NULL) {
 		printf("Erreur lors de l'ouverture du fichier lecteur.don \n");
-		fclose(fichier);
+		fclose(flot);
 
 		return -1;
 	}
@@ -116,41 +116,42 @@ int sauvegardeLecteur(Lecteur* tab[], int nbr) {
 		sauvegardeBinEmprunt(tab[i]->emprunt,tab[i]->nbEmprunt,flot);
 	}
 
-	fclose(fichier);
+	fclose(flot);
 
 	return 1;
 }
 
-void sauvegardeBinEmprunt(Emprunt le, int nbEmprunt, FILE *flot)
-{
+void sauvegardeBinEmprunt(Emprunt le, int nbEmprunt, FILE *flot) {
 	if (le == NULL)
 		return;
-	if (le->suiv == NULL)
-	{
+
+	if (le->suiv == NULL) {
 		fwrite(&le,sizeof(Emprunt),1,flot);
 		return;
 	}
+
 	fwrite(&le,sizeof(Emprunt),1,flot);
 	sauvegardeBinEmprunt(le->suiv,nbEmprunt-1,flot);
 }
-Emprunt chargerBinEmprunt(FILE *flot, int nbElem)
-{
+
+Emprunt chargerBinEmprunt(FILE *flot, int nbElem) {
 		int i;
-		Emprunt l, l2;
-		l=empruntVide();
+		Emprunt l = NULL, l2 = NULL;
+
 		printf("%d",nbElem);
-		for (i=0; i<nbElem;i++)
-		{
+
+		for (i=0; i<nbElem;i++) {
 			fread(&l2, sizeof(Emprunt),1,flot);
-			//l=insererEmprunt(l,l2->cote);
 			l=insererEnTeteEmpruntBin(l, l2->cote,l2->date);
 		}
+
 		return l;
 }
-Lecteur ** chargementBinLecteur(FILE *flot)
-{
+
+Lecteur ** chargementBinLecteur(FILE *flot) {
 	int i,nbLecteur;
-	Lecteur **tab, enCours;
+	Lecteur **tab;
+
 	nbLecteur = fread(&nbLecteur,sizeof(int),1,flot);
 	tab = (Lecteur **) malloc(sizeof(Lecteur *));
 	for (i=0; i<nbLecteur; i++)
