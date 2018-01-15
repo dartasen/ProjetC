@@ -81,3 +81,19 @@ void DecalerAGauche(Lecteur* tab[], int n, int i) {
 	for (j = i; j <= n-1; j++)
 		tab[j] = tab[j+1];
 }
+
+
+Lecteur** ajouterLecteur(Lecteur* tabL[], int* nbL, Lecteur l) {
+	Lecteur *aux;
+	aux = (Lecteur*)malloc(sizeof(Lecteur)*(*nbL) + 1);
+	
+	if( aux == NULL)
+		{
+		printf("erreur de malloc dans ajouterLecteur\n");
+		exit(1);
+		}
+	
+	aux = *tabL;
+	aux[*nbL + 1] = l;
+	return aux;
+}
