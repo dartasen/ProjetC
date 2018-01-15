@@ -84,7 +84,7 @@ Ouvrage lireOuvrage(FILE* fichier) {
 }
 
 Ouvrage** ajouterOuvrage(Ouvrage** tab, int* nbO, Ouvrage o) {
-	int i = rechercherOuvrage(cote, tabO, *nbO);
+	int i = rechercherOuvrage(cote, tab, *nbO);
 	Ouvrage **aux;
 
 	if (i != -1) {
