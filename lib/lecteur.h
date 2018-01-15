@@ -8,3 +8,4 @@ void DecalerADroite(Lecteur* tab[], int n, int i);
 void DecalerAGauche(Lecteur* tab[], int n, int i);
 Lecteur** ajouterLecteur(Lecteur* tabL[], int* nbL, Lecteur l);
 Lecteur** supprimerLecteur(Lecteur* tabL[], int* nbL, int i);
+int rechercheDichoLecteur(int numeroLecteur, Lecteur **tabl, int nb);
