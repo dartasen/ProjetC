@@ -7,3 +7,4 @@ int comparerNomPrenom(char* nom, char* prenom, char* nom1, char* prenom1);
 void DecalerADroite(Lecteur* tab[], int n, int i);
 void DecalerAGauche(Lecteur* tab[], int n, int i);
 Lecteur** ajouterLecteur(Lecteur* tabL[], int* nbL, Lecteur l);
+Lecteur** supprimerLecteur(Lecteur* tabL[], int* nbL, int i);
