@@ -107,12 +107,22 @@ Lecteur** ajouterLecteur(Lecteur* tabL[], int* nbL, Lecteur l) {
 	return aux;
 }
 
-Ouvrage** supprimerLecteur(Ouvrage* tabL[], int* nbL, int i) {
-	Ouvrage** aux;
+Lecteur** supprimerLecteur(Lecteur* tabL[], int* nbL, int i) {
+	Lecteur** aux;
 	int j;
 
-	free(&(*tabL[i])); //On supprime le Lecteur i du tab
-	DecalerAGauche(tabL[],nbL,i)// Et on décale pour boucher le trou
+	free(tabL[i]);
+	DecalerAGauche(tabL, nbL, i);
 
-	return tabL;
+	*nbL -= 1;
+
+	aux = (Lecteur**) realloc(tabO, (*nbL) * sizeof(Lecteur*));
+
+	if (aux == NULL && *nbL > 0) {
+		printf("Erreur de re alloc dans supprimerLecteur \n");
+		free(aux);
+		exit(1);
+	}
+
+	return aux;
 }
