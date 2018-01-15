@@ -29,6 +29,16 @@ void afficheLecteur(Lecteur l) {
 	printf("\n");
 }
 
+int comparerNomPrenom(char* nom, char* prenom, char* nom1, char* prenom1) {
+	int comp = strcmp(nom, nom1);
+	int comp2 = strcmp(prenom, prenom1);
+
+	if (comp == 0)
+		return comp2;
+
+	return comp;
+}
+
 void trierEchange(Lecteur* tab[], int nb) {
 	int pge;
 
@@ -58,41 +68,40 @@ int rechercheEchange(Lecteur* tab[], int nb) {
 	return pge;
 }
 
-int comparerNomPrenom(char* nom, char* prenom, char* nom1, char* prenom1) {
-	int comp = strcmp(nom, nom1);
-	int comp2 = strcmp(prenom, prenom1);
-	
-	if (comp == 0)
-		return comp2;
-	
-	return comp;
-}
+int rechercheLecteur(int numeroLecteur, Lecteur **tabl, int nb) {
+    int deb = 0,fin = nb - 1, m;
 
-void DecalerADroite(Lecteur* tab[], int n, int i) {
-	int j;
-	
-	for (j = n-1; j >= i; j--)
-		tab[j+1] = tab[j];
-}
+    while(deb <=fin) {
+        m = (fin + deb) / 2;
 
-void DecalerAGauche(Lecteur* tab[], int n, int i) {
-	int j;
-	
-	for (j = i; j <= n-1; j++)
-		tab[j] = tab[j+1];
-}
+        if (tabl[m]->numLecteur == numeroLecteur)
+            return m;
 
+        if (tabl[m]->numLecteur<numeroLecteur)
+            fin = m - 1;
+        else
+        	deb = m + 1;
+    }
+
+    return -1;
+}
 
 Lecteur** ajouterLecteur(Lecteur* tabL[], int* nbL, Lecteur l) {
+	int i = rechercheLecteur(l.numLecteur, tabL, *nbL);
 	Lecteur **aux;
-	aux = (Lecteur**)realloc(tabL, (*nbL +1) * sizeof(Lecteur*));
+
+	if (i == -1) {
+		printf("Impossible d'ajouter ce lecteur car il existe déjà !\n");
+		return tabL;
+	}
+
+	aux = (Lecteur**) realloc(tabL, (*nbL +1) * sizeof(Lecteur*));
 	
-	if( aux == NULL)
-		{
+	if (aux == NULL) {
 		printf("erreur de malloc dans ajouterLecteur\n");
 		free(aux);
 		exit(1);
-		}
+	}
 	
 	aux[*nbL] = (Lecteur*) malloc(sizeof(Lecteur));
 
@@ -102,7 +111,7 @@ Lecteur** ajouterLecteur(Lecteur* tabL[], int* nbL, Lecteur l) {
 	}
 
 	*aux[*nbL] = l;
-	*nbL ++;
+	*nbL += 1;
 
 	return aux;
 }
@@ -112,8 +121,9 @@ Lecteur** supprimerLecteur(Lecteur* tabL[], int* nbL, int i) {
 	int j;
 
 	free(tabL[i]);
-	for (j = i; j <= *nbL-1; j++) // On ne peut pas utiliser Décaler à gauche à cause du pointeur *nbL
-		tabL[j] = tabL[j+1];  // il faudrait créer une variable int nbElem = *nbL
+
+	for (j = i; j <= *nbL-1; j++)
+		tabL[j] = tabL[j+1];
 
 	*nbL -= 1;
 
@@ -126,21 +136,4 @@ Lecteur** supprimerLecteur(Lecteur* tabL[], int* nbL, int i) {
 	}
 
 	return aux;
-}
-
-int rechercheDichoLecteur(int numeroLecteur, Lecteur **tabl, int nb)
-{
-    int deb,fin , m;
-    deb = 0;
-    fin = nb-1;
-    while(deb <=fin)
-    {
-        m = (fin+deb)/2;
-        if (tabl[m]->numLecteur == numeroLecteur)
-            return m;
-        if (tabl[m]->numLecteur<numeroLecteur)
-            fin=m-1;
-        else deb = m+1;
-    }
-    return -1;
 }
