@@ -4,9 +4,9 @@
 > Fichier ouvrage : cote, titre, catégorie
 
 Fonctionnalités demandées :
-- [ ]  Chargement des fichiers (Clément)
+- [x]  Chargement des fichiers (Clément)
 - [x] Gestion des ouvrages (Clément)
-- [ ]  Inscription d'un nouveau lecteur (Maxime)
+- [x]  Inscription d'un nouveau lecteur (Clément)
 - [ ]  Suppression d'un lecteur (Maxime)
 - [x]  Enregistrement d'un nouvel emprunt (Romain)
 - [x]  Liste des lecteurs par ordre alphabétique (nom + prénom) (Clément)
