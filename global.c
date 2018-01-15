@@ -1,168 +1,312 @@
 #include "lib/lib.h"
 
-Ouvrage** chargeFouvrage(FILE* fichier, int* nbO) {
-	Ouvrage **tab, **newtab;
-	int i = 0;
+void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
+ int choix = 0;
+ Lecteur l;
+ char c;
 
-	fscanf(fichier, "%d%*c", nbO);
+ while (choix != 8) {
 
-	tab = (Ouvrage**) malloc(*nbO * sizeof(Ouvrage*));
+   printf("**********************\n");
+   printf("*    BIBLIOTHEQUE    *\n");
+   printf("**********************\n\n");
 
-	if (tab == NULL) {
-		printf("Erreur de malloc du tableau ouvrage \n");
-		free(tab);
-		exit(1);
+   printf("1) Gestion des ouvrages\n");
+   printf("2) Saisir un lecteur\n");
+   printf("8) Quitter \n");
+
+   printf("\nVotre choix > ");
+   scanf("%d%*c", &choix);
+
+   switch(choix) {
+	 case 1:
+		
+		 tabO = SousMenuOuvrage(tabO, nbO);
+		 system("clear");
+
+	 break;
+
+ 	 case 2:
+	 
+ 		 tabL = SousMenuLecteur(tabL, nbL);
+ 		 system("clear");
+
+ 	 break;
+
+ 	 case 8:
+
+ 		 sauvegarde(tabO, tabL, *nbO, *nbL);
+
+	 break;
+
+ 	 default:
+
+ 		 printf("Merci de rentrer un choix correct \n");
+
+ 	 break;
+    }
+  }
+}
+
+Lecteur** SousMenuLecteur(Lecteur* tabL[], int* nbL) {
+	int choix = 0;
+	Lecteur l;
+	char c;
+
+	while (choix != 8) {
+			system("clear");
+
+			printf("**********************\n");
+			printf("*      LECTEURS      *\n");
+			printf("**********************\n\n");
+
+			printf("1) Saisir un lecteur\n");
+			printf("8) Retourner au menu \n");
+
+			printf("\nVotre choix > ");
+			scanf("%d%*c", &choix);
+
+			switch (choix) {
+
+				case 1:
+
+					l = saisirLecteur();
+					afficheLecteur(l);
+
+					printf("\nAjouter le lecteur ? (o/n)\n");
+					scanf("%c%*c", &c);
+
+					if (c == 'o')
+						tabL = ajouterLecteur(tabL, nbL, l);
+
+				break;
+
+			 	default:
+
+			 		 printf("Merci de rentrer un choix correct \n");
+
+			 	break;
+			}
 	}
+}
 
-	while (!feof(fichier)) {
-		if (i > (*nbO - 1)) {
-		 	printf("Une erreur est survenue, le nombre déclaré en tête de fichier a été dépassé lors du parcourement de fichier\n");
+Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
+	int choix = 0, i, choix2 = 0;
+	MotClef m = NULL;
+	char c, cote[21];
+	Ouvrage o;
+
+	while (choix != 8) {
+		system("clear");
+
+		printf("**********************\n");
+		printf("*      OUVRAGES      *\n");
+		printf("**********************\n\n");
+
+		printf("1) Saisir un ouvrage\n");
+		printf("2) Supprimer un ouvrage\n");
+		printf("3) Modifier un ouvrage\n");
+		printf("4) Afficher les ouvrages\n");
+		printf("8) Retourner au menu \n");
+
+		printf("\nVotre choix > ");
+		scanf("%d%*c", &choix);
+
+		switch (choix) {
+
+			case 1:
+
+				 o = saisirOuvrage();
+				 afficherOuvrage(o);
+
+				 printf("Ajouter l'ouvrage ? (o/n)\n");
+				 scanf("%c%*c", &c);
+
+				 if (c == 'o')
+					 tabO = ajouterOuvrage(tabO, nbO, o);
+				
+				continue;
+			break;
+
+			case 2:
+
+				printf("\nSaisir la côte de l'ouvrage à supprimer \n");
+				scanf("%s%*c", cote);
+
+				i = rechercherOuvrage(cote, tabO, *nbO);
+
+				printf("\n");
+
+				if (i == -1) {
+					printf("Impossible de supprimer cet ouvrage car il n'existe pas !\n");
+					break;
+				}
+
+				afficherOuvrage(*tabO[i]);
+				printf("Supprimer l'ouvrage ? (o/n)\n");
+				scanf("%c%*c", &c);
+
+				if (c == 'o')
+					tabO = supprimerOuvrage(tabO, nbO, i);
+
+			break;
+
+			case 3:
+
+				printf("\nSaisir la cote de l'ouvrage à modifier \n");
+				scanf("%s%*c", cote);
+
+				i = rechercherOuvrage(cote, tabO, *nbO);
+
+				if (i == -1) {
+					printf("\nImpossible de modifier cet ouvrage car il n'existe pas !\n");
+					break;
+				}
+				
+				Ouvrage o = *tabO[i];
+				choix2 = 0;
+
+				while (choix2 != 8) {
+					printf("\n1) Modifier le titre | 2) Modifier la catégorie | 3) Modifier la quantité | 4) Modifier les mots clefs | 8) Quitter \n\nVotre choix > ");
+					scanf("%d%*c", &choix2);
+
+					switch (choix2) {
+						case 1:
+								printf("\n> Titre actuel : %s\n> Nouveau titre : ", o.titre);
+								fgets(o.titre, sizeof(o.titre), stdin);
+								o.titre[strlen(o.titre) - 1] = '\0';
+
+								printf("\nLe titre de l'ouvrage a été modifié !\n");
+						break;
+
+						case 2:
+								printf("\n> Catégorie actuel : %s\n> Nouvelle catégorie : ", o.categorie);
+								fgets(o.categorie, sizeof(o.categorie), stdin);
+								o.categorie[strlen(o.categorie) - 1] = '\0';
+
+								printf("\nLa catégorie de l'ouvrage a été modifiée !\n");
+						break;
+
+						case 3:
+								printf("\nQuantité actuelle : %d\n> Nouvelle quantité : ", o.quantite);
+								scanf("%d%*c", &o.quantite);
+
+								while (o.quantite < 0) {
+									printf("! Une quantité ne peut-être négative ! \n");
+									printf("Saisir la quantité de livre \n");
+									scanf("%d%*c", &o.quantite);
+								}
+
+								printf("\nLa quantité de l'ouvrage a été modifiée ! \n");
+						break;
+							
+						case 4:
+								m = (MaillonMot*) malloc(sizeof(MaillonMot));
+
+								if (m == NULL) {
+									printf("Erreur de malloc des MotClefs \n");
+									exit(1);
+								}
+			
+								printf("\n> Mots-Clefs actuels :");
+							        afficherMotClef(o.motclefs);
+
+								printf("> Nouveau Mots-Clefs (:q pour quitter) \n");
+								printf("Saisie > ");
+	
+								scanf("%s%*c", cote);
+								strcpy(m->mot, cote);
+								m->suiv = NULL;
+
+								while (strcmp(cote, ":q") != 0) {
+									printf("Saisie > ");
+									scanf("%s%*c", cote);
+									insererMotClef(m, cote);
+								}
+
+								if (longueurMotClef(m) == 1 && strcmp(cote,":q") != 0)
+									strcpy(m->mot, "AUCUN");
+								
+								supprimerMC(o.motclefs);
+								o.motclefs = m;
+
+						break;
+
+						case 8:
+
+								printf("\n");
+								afficherOuvrage(o);
+
+								printf("Modifier l'ouvrage ? (o/n)\n");
+								scanf("%c%*c", &c);
+
+								if (c == 'o')
+									*tabO[i] = o;
+
+						break;
+
+						default:
+
+								printf("\nMerci de rentrer un choix correct \n");
+								choix = 0;
+
+						break;
+					}
+				}
+
+			break;
+
+			case 4:
+
+				 printf("\nAffichage de %d Ouvrages \n\n", *nbO);
+
+				 for (i = 0; i < *nbO; i++)
+					afficherOuvrage(*tabO[i]);
+
+			break;
+
+			case 8:
+				 return tabO;
+			break;
+
+			default:
+
+				 printf("\nMerci de rentrer un choix correct \n");
+
 			break;
 		}
-		
-		if (i == *nbO) {
-			newtab = (Ouvrage**) realloc(tab, (*nbO + 1) * sizeof(Ouvrage*));
 
-			if (newtab != NULL) {
-				tab = newtab;
-				free(newtab);
-			} else {
-				printf("Erreur de ralloc du tab ouvrage \n");
-				free(newtab);
-				exit(1);
-			}
-			
-			*nbO += 1;
-		}
-
-		tab[i] = (Ouvrage*) malloc(sizeof(Ouvrage));
-
-		if (tab[i] == NULL) {
-			printf("Erreur de malloc d'un ouvrage \n");
-			exit(1);
-		}
-
-		*tab[i] = lireOuvrage(fichier);
-		i++;
+ 		 printf("Appuyez sur une touche pour continuer\n");
+		 system("read osef");
 	}
 
-	return tab;
+	return tabO;
 }
 
-void sauvegarde(Ouvrage* tabO[], Lecteur* tabL[], int nbO, int nbL) {
-	int etat = 0;
+int main(void) {
+ Ouvrage** tabO = NULL;
+ Lecteur** tabL = NULL;
+ int nbO = 0, nbL = 0;
 
-	etat += sauvegardeOuvrage(tabO, nbO);
-	etat += sauvegardeLecteur(tabL, nbL);
+ system("osef=0");
 
-	if (etat < 0)
-		exit(1);
+ FILE* flotOuvrage = fopen("ouvrage.don", "r");
+ FILE* flotLecteur = fopen("lecteur.don", "rb");
 
-	printf("\nSAUVEGARDE EFFECTUEE !\n");
-}
+ if (flotOuvrage == NULL || flotLecteur == NULL) {
+	 printf("Erreur de fopen de ouvrage.don \n");
+	 exit(1);
+ }
 
-void streplace(char mot[], char remplacer, char remplacant) {
-	int i;
+ tabO = chargeFouvrage(flotOuvrage, &nbO);
+ tabL = chargementBinLecteur(flotLecteur, &nbL);
 
-	for (i = 0; mot[i] != '\0'; i++)
-		if (mot[i] == remplacer)
-			mot[i] = remplacant;
-}
+ menu(tabO, tabL, &nbO, &nbL);
 
-int sauvegardeOuvrage(Ouvrage* tab[], int nbr) {
-	FILE* fichier = fopen("ouvrage.don", "w");
-	Ouvrage m;
-	int i;
+ fclose(flotOuvrage);
 
-	if (fichier == NULL) {
-		printf("Erreur lors de l'ouverture du fichier ouvrage.don \n");
-		fclose(fichier);
-		
-		return -1;
-	}
+ printf("Appuyez sur une touche pour continuer\n");
+ system("read osef");
 
-	fprintf(fichier, "%d", nbr);
-
-	for (i = 0; i < nbr; i++) {
-		m = *tab[i];
-		
-		streplace(m.titre, ' ', '~');
-		streplace(m.categorie, ' ', '~');
-
-		fprintf(fichier, "\n%s %s %d %s %d ", m.cote, m.titre, m.quantite, m.categorie, m.quantiteEmprunt);
-		ecrireMotClef(fichier, m.motclefs);
-	}
-
-	fclose(fichier);
-
-	return 1;
-}
-
-int sauvegardeLecteur(Lecteur* tab[], int nbLecteur) {
-	FILE* flot = fopen("lecteur.don", "wb");
-	int i;
-
-	if (flot == NULL) {
-		printf("Erreur lors de l'ouverture du fichier lecteur.don \n");
-		fclose(flot);
-
-		return -1;
-	}
-	
-	fwrite(&nbLecteur,sizeof(int),1,flot);
-	
-	for (i=0; i<nbLecteur; i++){
-		fwrite(tab[i],sizeof(Lecteur),1,flot);
-		sauvegardeBinEmprunt(tab[i]->emprunt,tab[i]->nbEmprunt,flot);
-	}
-
-	fclose(flot);
-
-	return 1;
-}
-
-void sauvegardeBinEmprunt(Emprunt le, int nbEmprunt, FILE *flot) {
-	if (le == NULL)
-		return;
-
-	if (le->suiv == NULL) {
-		fwrite(&le,sizeof(Emprunt),1,flot);
-		return;
-	}
-
-	fwrite(&le,sizeof(Emprunt),1,flot);
-	sauvegardeBinEmprunt(le->suiv,nbEmprunt-1,flot);
-}
-
-Emprunt chargerBinEmprunt(FILE *flot, int nbElem) {
-		int i;
-		Emprunt l = NULL, l2 = NULL;
-
-		printf("%d",nbElem);
-
-		for (i=0; i<nbElem;i++) {
-			fread(&l2, sizeof(Emprunt),1,flot);
-			l=insererEnTeteEmpruntBin(l, l2->cote,l2->date);
-		}
-
-		return l;
-}
-
-Lecteur ** chargementBinLecteur(FILE *flot, int* nbL) {
-	int i,nbLecteur;
-	Lecteur **tab;
-
-	nbLecteur = fread(&nbLecteur,sizeof(int),1,flot);
-	tab = (Lecteur **) malloc(sizeof(Lecteur *));
-
-	for (i = 0; i < nbLecteur; i++) {
-		tab[i]= (Lecteur *) malloc(sizeof(Lecteur));
-		fread(tab[i],sizeof(Lecteur),1,flot);
-
-		tab[i]->emprunt=chargerBinEmprunt(flot,tab[i]->nbEmprunt);
-	}
-
-	*nbL = nbLecteur;
-
-	return tab;
+ return 0;
 }
