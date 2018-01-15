@@ -84,16 +84,25 @@ void DecalerAGauche(Lecteur* tab[], int n, int i) {
 
 
 Lecteur** ajouterLecteur(Lecteur* tabL[], int* nbL, Lecteur l) {
-	Lecteur *aux;
-	aux = (Lecteur*)malloc(sizeof(Lecteur)*(*nbL) + 1);
+	Lecteur **aux;
+	aux = (Lecteur**)realloc(tabL, (*nbL +1) * sizeof(Lecteur*));
 	
 	if( aux == NULL)
 		{
 		printf("erreur de malloc dans ajouterLecteur\n");
+		free(aux);
 		exit(1);
 		}
 	
-	aux = *tabL;
-	aux[*nbL + 1] = l;
+	aux[*nbL] = (Lecteur*) malloc(sizeof(Lecteur));
+
+	if (aux[*nbL] == NULL) {
+			printf("Erreur de malloc dans ajouterLecteur \n");
+			exit(1);
+	}
+
+	*aux[*nbL] = l;
+	*nbL ++;
+
 	return aux;
 }
