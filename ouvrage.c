@@ -145,3 +145,19 @@ Ouvrage** supprimerOuvrage(Ouvrage* tabO[], int* nbO, int i) {
 
 	return aux;
 }
+int rechercheDichoOuvrage(char cote[], Ouvrage **o, int nb)
+{
+    int deb,fin , m;
+    deb = 0;
+    fin = nb-1;
+    while(deb <=fin)
+    {
+        m = (fin+deb)/2;
+        if (strcmp(cote,o[m]->cote) ==0)
+            return m;
+        if (strcmp(cote,o[m]->cote)<0)
+            fin=m-1;
+        else deb = m+1;
+    }
+    return -1;
+}
