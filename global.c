@@ -2,8 +2,6 @@
 
 void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
  int choix = 0;
- Lecteur l;
- char c;
 
  while (choix != 8) {
 
@@ -49,7 +47,7 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
 }
 
 Lecteur** SousMenuLecteur(Lecteur* tabL[], int* nbL) {
-	int choix = 0;
+	int choix = 0, i, num;
 	Lecteur l;
 	char c;
 
@@ -77,23 +75,33 @@ Lecteur** SousMenuLecteur(Lecteur* tabL[], int* nbL) {
 					printf("\nAjouter le lecteur ? (o/n)\n");
 					scanf("%c%*c", &c);
 
-					if (c == 'o')
+					if (c == 'o') {
 						tabL = ajouterLecteur(tabL, nbL, l);
+						trierEchange(tabL, *nbL);
+					}
 
 				break;
 				
 				case 2:
 
-					l = saisirLecteur();
-					afficheLecteur(l);
+					printf("\nSaisir le numéro du lecteur à supprimer \n");
+					scanf("%d%*c", &num);
 
-					printf("\nSupprimer le lecteur ? (o/n)\n");
+					i =  rechercheLecteur(num, tabL, *nbL);
+
+					printf("\n");
+
+					if (i == -1) {
+						printf("Impossible de supprimer ce lecteur car il n'existe pas !\n");
+						break;
+					}
+
+					afficheLecteur(*tabL[i]);
+					printf("Supprimer le lecteur ? (o/n)\n");
 					scanf("%c%*c", &c);
 
 					if (c == 'o')
-						tabL = supprimerLecteur(tabL, nbL, l);
-
-
+						tabL = supprimerLecteur(tabL, nbL, i);
 
 				break;
 
