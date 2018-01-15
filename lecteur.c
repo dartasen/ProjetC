@@ -112,11 +112,12 @@ Lecteur** supprimerLecteur(Lecteur* tabL[], int* nbL, int i) {
 	int j;
 
 	free(tabL[i]);
-	DecalerAGauche(tabL, nbL, i);
+	for (j = i; j <= *nbL-1; j++) // On ne peut pas utiliser Décaler à gauche à cause du pointeur *nbL
+		tabL[j] = tabL[j+1];  // il faudrait créer une variable int nbElem = *nbL
 
 	*nbL -= 1;
 
-	aux = (Lecteur**) realloc(tabO, (*nbL) * sizeof(Lecteur*));
+	aux = (Lecteur**) realloc(tabL, (*nbL) * sizeof(Lecteur*));
 
 	if (aux == NULL && *nbL > 0) {
 		printf("Erreur de re alloc dans supprimerLecteur \n");
