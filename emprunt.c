@@ -1,5 +1,8 @@
 #include "lib/lib.h"
 
+
+//ancienne version
+/*
 void nouvelEmprunt(Lecteur l, Ouvrage o) {
 	
 	if (o.quantite - o.quantiteEmprunt <= 0)
@@ -11,6 +14,50 @@ void nouvelEmprunt(Lecteur l, Ouvrage o) {
 	o.quantiteEmprunt += 1;
 	o.quantite -= 1;
 }
+*/ 
+void nouvelEmprunt(int numeroLecteur, Lecteur **tabl, int nbL, char cote[],Ouvrage **tabO, int nbo)
+{
+    int poso,posl;
+    poso = rechercheDichoOuvrage(cote, tabO, nbo);
+    posl = rechercheDichoLecteur(numeroLecteur, tabl, nbL);
+    if (poso == -1 || posl == -1)
+    {
+        printf("Le Lecteur ou l'ouvrage n'existe pas \n");
+        return;
+    }
+	if (tabO[poso]->quantite - tabO[poso]->quantiteEmprunt == 0)
+		{
+            printf("Impossible d'emprunter l'ouvrage \n");
+            return;
+        }
+	else if (tabl[posl]->nbEmprunt >=5)
+    {
+		printf("Vous avez déjà  emprunter 5 livres \n");
+        return;
+    }
+
+	tabl[posl]->emprunt = insererEmprunt(tabl[posl]->emprunt, tabO[poso]->cote);
+	tabO[poso]->quantiteEmprunt += 1;
+    tabl[posl]->nbEmprunt+=1;
+}
+
+void retourEmprunt(int numeroLecteur, Lecteur **tabl, int nbL, char cote[],Ouvrage **tabO, int nbo)
+{
+    int poso,posl;
+    poso = rechercheDichoOuvrage(cote, tabO, nbo);
+    posl = rechercheDichoLecteur(numeroLecteur, tabl, nbL);
+    if (poso == -1 || posl == -1)
+    {
+        printf("Le Lecteur ou l'ouvrage n'existe pas \n");
+        return;
+    }
+    tabl[posl]->emprunt=supprimerEmprunt(tabl[posl]->emprunt,tabO[poso]->cote);
+    tabO[poso]->quantiteEmprunt -=1;
+    tabl[posl]->nbEmprunt -=1;
+}
+
+
+
 
 Emprunt EmpruntVide(void) {
 	return NULL;
