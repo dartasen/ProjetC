@@ -12,7 +12,7 @@ void menu(Ouvrage* tabO[], Lecteur* tabL[], int* nbO, int* nbL) {
    printf("**********************\n\n");
 
    printf("1) Gestion des ouvrages\n");
-   printf("2) Saisir un lecteur\n");
+   printf("2) Gestion des lecteurs\n");
    printf("8) Quitter \n");
 
    printf("\nVotre choix > ");
@@ -61,6 +61,7 @@ Lecteur** SousMenuLecteur(Lecteur* tabL[], int* nbL) {
 			printf("**********************\n\n");
 
 			printf("1) Saisir un lecteur\n");
+			printf("2) Supprimer un lecteur\n");
 			printf("8) Retourner au menu \n");
 
 			printf("\nVotre choix > ");
@@ -80,6 +81,28 @@ Lecteur** SousMenuLecteur(Lecteur* tabL[], int* nbL) {
 						tabL = ajouterLecteur(tabL, nbL, l);
 
 				break;
+				
+				case 2:
+
+					l = saisirLecteur();
+					afficheLecteur(l);
+
+					printf("\nSupprimer le lecteur ? (o/n)\n");
+					scanf("%c%*c", &c);
+
+					if (c == 'o')
+						tabL = supprimerLecteur(tabL, nbL, l);
+
+
+
+				break;
+
+
+				case 8:
+
+				 return tabL;
+
+				break;
 
 			 	default:
 
@@ -87,7 +110,10 @@ Lecteur** SousMenuLecteur(Lecteur* tabL[], int* nbL) {
 
 			 	break;
 			}
+			printf("Appuyez sur une touche pour continuer\n");
+		 	system("read osef");
 	}
+	return tabL;
 }
 
 Ouvrage** SousMenuOuvrage(Ouvrage* tabO[], int* nbO) {
