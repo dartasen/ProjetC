@@ -18,6 +18,14 @@ MotClef insererEnTeteMotClef(MotClef m, char mot[]) {
 	return aux;
 }
 
+void supprimerMC(MotClef m) {
+	if (m == MotVide())
+		return;
+
+	supprimerMC(m->suiv);
+	free(m);
+}
+
 MotClef insererMotClef(MotClef m, char mot[]) {
 	if (m == MotVide())
 		return insererEnTeteMotClef(m, mot);
