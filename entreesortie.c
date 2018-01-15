@@ -148,17 +148,21 @@ Emprunt chargerBinEmprunt(FILE *flot, int nbElem) {
 		return l;
 }
 
-Lecteur ** chargementBinLecteur(FILE *flot) {
+Lecteur ** chargementBinLecteur(FILE *flot, int* nbL) {
 	int i,nbLecteur;
 	Lecteur **tab;
 
 	nbLecteur = fread(&nbLecteur,sizeof(int),1,flot);
 	tab = (Lecteur **) malloc(sizeof(Lecteur *));
-	for (i=0; i<nbLecteur; i++)
-	{
-		tab[i]= (Lecteur *)malloc(sizeof(Lecteur));
+
+	for (i = 0; i < nbLecteur; i++) {
+		tab[i]= (Lecteur *) malloc(sizeof(Lecteur));
 		fread(tab[i],sizeof(Lecteur),1,flot);
+
 		tab[i]->emprunt=chargerBinEmprunt(flot,tab[i]->nbEmprunt);
 	}
+
+	*nbL = nbLecteur;
+
 	return tab;
 }
