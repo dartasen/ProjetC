@@ -7,7 +7,7 @@ Fonctionnalités demandées :
 - [x]  Chargement des fichiers (Clément)
 - [x] Gestion des ouvrages (Clément)
 - [x]  Inscription d'un nouveau lecteur (Clément)
-- [ ]  Suppression d'un lecteur (Maxime)
+- [x]  Suppression d'un lecteur (Maxime)
 - [x]  Enregistrement d'un nouvel emprunt (Romain)
 - [x]  Liste des lecteurs par ordre alphabétique (nom + prénom) (Clément)
 - [x]  Sauvegarde des fichiers (Romain)
