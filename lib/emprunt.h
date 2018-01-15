@@ -1,4 +1,3 @@
-//void nouvelEmprunt(Lecteur l, Ouvrage o);
 void nouvelEmprunt(int numeroLecteur, Lecteur **tabl, int nbL, char cote[],Ouvrage **tabO, int nbo);
 void retourEmprunt(int numeroLecteur, Lecteur **tabl, int nbL, char cote[],Ouvrage **tabO, int nbo);
 Emprunt EmpruntVide(void);
