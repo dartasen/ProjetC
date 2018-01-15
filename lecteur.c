@@ -106,3 +106,13 @@ Lecteur** ajouterLecteur(Lecteur* tabL[], int* nbL, Lecteur l) {
 
 	return aux;
 }
+
+Ouvrage** supprimerLecteur(Ouvrage* tabL[], int* nbL, int i) {
+	Ouvrage** aux;
+	int j;
+
+	free(&(*tabL[i])); //On supprime le Lecteur i du tab
+	DecalerAGauche(tabL[],nbL,i)// Et on décale pour boucher le trou
+
+	return tabL;
+}
