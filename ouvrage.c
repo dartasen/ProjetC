@@ -84,7 +84,7 @@ Ouvrage lireOuvrage(FILE* fichier) {
 }
 
 Ouvrage** ajouterOuvrage(Ouvrage** tab, int* nbO, Ouvrage o) {
-	int i = rechercherOuvrage(cote, tab, *nbO);
+	int i = rechercherOuvrage(o.cote, tab, *nbO);
 	Ouvrage **aux;
 
 	if (i != -1) {
@@ -113,21 +113,28 @@ Ouvrage** ajouterOuvrage(Ouvrage** tab, int* nbO, Ouvrage o) {
 	return aux;
 }
 
-int rechercherOuvrage(char cote[], Ouvrage* tabO[], int nbO) {
-	int i;
+int rechercherOuvrage(char *cote, Ouvrage* tabO[], int nbO) {
+    int deb = 0, fin = nbO - 1 , m;
 
-	for (i = 0; i < nbO; i++)
-		if (strcmp((*tabO[i]).cote, cote) == 0)
-			return i;
+    while(deb <=fin) {
+        m = (fin+deb)/2;
 
-	return -1;
+        if (strcmp(cote,tabO[m]->cote) == 0)
+            return m;
+
+        if (strcmp(cote,tabO[m]->cote) < 0)
+            fin = m - 1;
+        else
+        	deb = m + 1;
+    }
+
+    return -1;
 }
 
 Ouvrage** supprimerOuvrage(Ouvrage* tabO[], int* nbO, int i) {
 	Ouvrage** aux;
 	int j;
 
-	//free(&(*tabO[i]));
 	free(tabO[i]);
 
 	for (j = i; j <= *nbO-1; j++)
@@ -144,20 +151,4 @@ Ouvrage** supprimerOuvrage(Ouvrage* tabO[], int* nbO, int i) {
 	}
 
 	return aux;
-}
-int rechercheDichoOuvrage(char cote[], Ouvrage **o, int nb)
-{
-    int deb,fin , m;
-    deb = 0;
-    fin = nb-1;
-    while(deb <=fin)
-    {
-        m = (fin+deb)/2;
-        if (strcmp(cote,o[m]->cote) ==0)
-            return m;
-        if (strcmp(cote,o[m]->cote)<0)
-            fin=m-1;
-        else deb = m+1;
-    }
-    return -1;
 }
