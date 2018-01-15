@@ -127,3 +127,20 @@ Lecteur** supprimerLecteur(Lecteur* tabL[], int* nbL, int i) {
 
 	return aux;
 }
+
+int rechercheDichoLecteur(int numeroLecteur, Lecteur **tabl, int nb)
+{
+    int deb,fin , m;
+    deb = 0;
+    fin = nb-1;
+    while(deb <=fin)
+    {
+        m = (fin+deb)/2;
+        if (tabl[m]->numLecteur == numeroLecteur)
+            return m;
+        if (tabl[m]->numLecteur<numeroLecteur)
+            fin=m-1;
+        else deb = m+1;
+    }
+    return -1;
+}
