@@ -73,9 +73,9 @@ Ouvrage lireOuvrage(FILE* fichier) {
 
 	fscanf(fichier, "%s %s %d %s %d %s", o.cote, temp, &o.quantite, temp2, &o.quantiteEmprunt, serial);
 
-	streplace(temp, ':', ' ');
+	streplace(temp, '~', ' ');
 	strcpy(o.titre, temp);
-	streplace(temp2, ':', ' ');
+	streplace(temp2, '~', ' ');
 	strcpy(o.categorie, temp2);
 
 	o.motclefs = lireMotClef(serial);
