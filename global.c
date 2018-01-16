@@ -60,6 +60,7 @@ Lecteur** SousMenuLecteur(Lecteur* tabL[], int* nbL) {
 
 			printf("1) Saisir un lecteur\n");
 			printf("2) Supprimer un lecteur\n");
+			printf("3) Afficher les lecteurs \n");
 			printf("8) Retourner au menu \n");
 
 			printf("\nVotre choix > ");
@@ -70,9 +71,12 @@ Lecteur** SousMenuLecteur(Lecteur* tabL[], int* nbL) {
 				case 1:
 
 					l = saisirLecteur();
+
+					printf("\n");
+
 					afficheLecteur(l);
 
-					printf("\nAjouter le lecteur ? (o/n)\n");
+					printf("Ajouter le lecteur ? (o/n)\n");
 					scanf("%c%*c", &c);
 
 					if (c == 'o') {
@@ -105,6 +109,14 @@ Lecteur** SousMenuLecteur(Lecteur* tabL[], int* nbL) {
 
 				break;
 
+				case 3:
+
+		 			printf("\nAffichage de %d Lecteurs \n\n", *nbL);
+
+				 	for (i = 0; i < *nbL; i++)
+						afficheLecteur(*tabL[i]);
+						
+				break;
 
 				case 8:
 
