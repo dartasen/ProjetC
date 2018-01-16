@@ -90,7 +90,7 @@ Lecteur** ajouterLecteur(Lecteur* tabL[], int* nbL, Lecteur l) {
 	int i = rechercheLecteur(l.numLecteur, tabL, *nbL);
 	Lecteur **aux;
 
-	if (i == -1) {
+	if (i != -1) {
 		printf("Impossible d'ajouter ce lecteur car il existe déjà !\n");
 		return tabL;
 	}
