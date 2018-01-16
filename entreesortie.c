@@ -111,9 +111,9 @@ int sauvegardeLecteur(Lecteur* tab[], int nbLecteur) {
 	
 	fwrite(&nbLecteur,sizeof(int),1,flot);
 	
-	for (i=0; i<nbLecteur; i++){
-		fwrite(tab[i],sizeof(Lecteur),1,flot);
-		sauvegardeBinEmprunt(tab[i]->emprunt,tab[i]->nbEmprunt,flot);
+	for (i = 0; i < nbLecteur; i++){
+		fwrite(tab[i], sizeof(Lecteur), 1, flot);
+		sauvegardeBinEmprunt(tab[i]->emprunt, tab[i]->nbEmprunt,flot);
 	}
 
 	fclose(flot);
@@ -135,12 +135,12 @@ void sauvegardeBinEmprunt(Emprunt le, int nbEmprunt, FILE *flot) {
 }
 
 Emprunt chargerBinEmprunt(FILE *flot, int nbElem) {
-		int i;
 		Emprunt l = NULL, l2 = NULL;
+		int i;
 
 		printf("%d",nbElem);
 
-		for (i=0; i<nbElem;i++) {
+		for (i = 0; i < nbElem;i++) {
 			fread(&l2, sizeof(Emprunt),1,flot);
 			l=insererEnTeteEmpruntBin(l, l2->cote,l2->date);
 		}
@@ -149,17 +149,17 @@ Emprunt chargerBinEmprunt(FILE *flot, int nbElem) {
 }
 
 Lecteur ** chargementBinLecteur(FILE *flot, int* nbL) {
-	int i,nbLecteur;
+	int i, nbLecteur;
 	Lecteur **tab;
 
-	nbLecteur = fread(&nbLecteur,sizeof(int),1,flot);
-	tab = (Lecteur **) malloc(sizeof(Lecteur *));
+	fread(&nbLecteur, sizeof(int), 1, flot);
+	tab = (Lecteur **) malloc(nbLecteur * sizeof(Lecteur *));
 
 	for (i = 0; i < nbLecteur; i++) {
 		tab[i]= (Lecteur *) malloc(sizeof(Lecteur));
-		fread(tab[i],sizeof(Lecteur),1,flot);
+		fread(tab[i], sizeof(Lecteur), 1, flot);
 
-		tab[i]->emprunt=chargerBinEmprunt(flot,tab[i]->nbEmprunt);
+		tab[i]->emprunt=chargerBinEmprunt(flot, tab[i]->nbEmprunt);
 	}
 
 	*nbL = nbLecteur;
